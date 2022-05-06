@@ -3,8 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserForm, EtuForm, InvestForm
-
+from .forms import UserForm, EtuForm, InvestForm , LoginForm
+from . import forms
 # Create your views here.
 
 
@@ -105,3 +105,31 @@ def register_investor(request):
         'err2':err2,
     }
     return render(request, 'users/register_investor.html', context)
+
+#page de connection
+def login_page(request):
+    form = forms.LoginForm()
+    message = ''
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            user= authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+            )
+            #if user_log:
+            if user is not None:
+                    #logout(request)
+                login(request, user)
+                if register_student:
+                    return HttpResponseRedirect('accuiel_student')
+                else:
+                    return HttpResponseRedirect('accuiel_invest') 
+                #return HttpResponseRedirect('accuiel')
+                #message = f'bienvenue, {user.username}! Vous êtes connecté.'
+            else:
+                message = 'Identifiants invalides.'
+    return render(
+        request, 'users/login.html', context={'form': form, 'message': message})
+    
+    
