@@ -121,11 +121,11 @@ def login_page(request):
             if user is not None:
                     #logout(request)
                 login(request, user)
-                if register_student:
-                    return HttpResponseRedirect('accuiel_student')
-                else:
-                    return HttpResponseRedirect('accuiel_invest') 
-                #return HttpResponseRedirect('accuiel')
+               # if register_student(request):
+                    #return HttpResponseRedirect('accuiel_student')
+                #elif register_investor(request):
+                 #   return HttpResponseRedirect('/') 
+                return HttpResponseRedirect('/')
                 #message = f'bienvenue, {user.username}! Vous êtes connecté.'
             else:
                 message = 'Identifiants invalides.'

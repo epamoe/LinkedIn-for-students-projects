@@ -1,5 +1,273 @@
 {% extends 'base.html' %}
 {% block content %}
+ 
+<style>
+	@font-face {
+		font-family: Poppins;
+		src: url(fonts/Poppins-Regular.ttf);
+	}
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-size: 'Poppins', sans-serif;
+	}
+	body{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		/* background: #0b5ed7; */
+		transition: 0.5s; 
+	}
+	body.active{
+		/* background: #ff8c2e; */
+	}
+	.contain{
+		position: relative;
+		width: 800px;
+		height: 600px;
+		margin: 20px;
+	}
+	.orangeBg{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* background: rgba(255, 255, 255, 0.2); */
+		background: #ff8c2E;
+		width: 100%;
+		height: 420px;
+		top: 90px;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.15);
+		border-radius: 10px;
+	}
+	.orangeBg .box{
+		position: relative;
+		width: 50%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.orangeBg .box h2{
+		color: rgb(228, 225, 216);
+		font-size: 1.2rem;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.box a{
+		padding: 10px 20px;
+		background: #fff;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		border: none;
+		color: #333;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.formBx{
+		position: absolute;
+		background: #fff;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+		transition: .3s ease-in-out;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+	.formBx.active{
+		left: 50%;
+	}
+	.formBx .form{
+		position: absolute;
+		left: 0;
+		padding: 50px;
+		width: 100%;
+		transition: .5s;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.formBx .registerForm1{
+		transition-delay: .2s;
+	}
+	.formBx.active .registerForm1{
+		left: -100%;
+		transition-delay: 0s;
+	}
+	.formBx .registerForm2{
+		left: 100%;
+		transition-delay: 0s;
+	}
+	.formBx.active .registerForm2{
+		left: 0;
+		transition-delay: .2s;
+	}
+	.formBx .form h3{
+		font-size: 1.5rem;
+		color: #333;
+		font-weight: 500;
+		margin-bottom: 20px;
+	}
+	.formBx .form input,
+	.formBx .form select{
+		width: 100%;
+		padding: 10px;
+		border-radius: 10px;
+		outline: none;
+		font-size: 16px;
+		color: #333;
+		border: 1px solid #ced4da;
+	}
+	.formBx .form input:focus,
+	.formBx .form select:focus{
+		border: 1px solid #ff8c2E;
+		box-shadow: 0 0 5px #ff8c2E;
+	}
+	.form .btnForm{
+		padding: 10px 20px;
+		background: #ff8c2E;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		border: none !important;
+		color: #fff !important;
+		cursor: pointer;
+		max-width: 100px;
+	}
+	.precedentBtn{
+		color: #333;
+		cursor: pointer;
+	}
+	.precedentBtn:hover{
+		color: rgb(107, 107, 107);
+	}
+	.precedentBtn{
+		margin-left: 40%;
+	}
+
+	@media screen and (max-width:991px) {
+		.contain{
+			max-width: 400px;
+			height: 800px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.contain .orangeBg{
+			top: 0;
+			height: 100%;
+		}
+		.formBx{
+			width: 100%;
+			height: 650px;
+			top: 0;
+			box-shadow: none; 
+		}
+		.blueBg .box{
+			position: absolute;
+			width: 100%;
+			height: 150px;
+			bottom: 0;
+		}
+		.box.un{
+			top: 0;
+		}
+		.formBx.active{
+			left: 0;
+			top: 150px;
+		}
+
+		.precedentBtn{
+			margin-left: 20%;
+		}
+	}
+
+	.fas{
+		color: #ff8c2E !important;
+		font-size: 2rem;
+	}
+</style>
+
+<div class="contain">
+	<div class="orangeBg">
+		<div class="box ">
+			<h2>Vous avez déja un compte ?</h2>
+			<a href="">inscription</a>
+		</div>
+	</div>
+	<form action="" method="POST">
+		{% csrf_token %}
+
+		{% if util == "" %}
+		<div class="formBx">
+		{% endif %}
+		{% if util != "" %}
+		<div class="formBx active">
+		{% endif %}
+		<!--
+
+		
+			<div class="form registerForm1">
+				<h3><i class="fas fa-user-tie"></i> Connexion</h3>
+				{{user_form.username}}
+				<p><span class="username" id="username"></span></p>
+				{{login_form.username}}
+				<p><span class="errorform" id="error_professionInv"></span></p>
+				{{login_form.password}}
+				<p><span class="errorform" id="error_entrepriseInv"></span></p>
+				{{invest_form.objectifs}}
+				<p><span class="errorform" id="error_objectifsInv"></span></p>
+				{{invest_form.ville}}
+				<p><span class="errorform" id="error_villeEtu"></span></p>
+				<span style="font-size: 13px; color: #333; margin-bottom: 3px;">&emsp;(avec indicatif du pays, ex: +237)</span>
+				{{invest_form.telephone}}
+				<p><span class="errorform" id="error_telephoneEtu"></span></p>
+				<span id="suivantBtnInv" class="btnForm">Suivant</span>
+			</div>
+		-->
+			<div class="form registerForm">
+				<h3><i class="fas fa-user-tie"></i> Connexion</h3>
+				{% if user_form.username.errors %}
+					<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
+				{% endif %}
+				{{user_form.email}}
+				<p><span class="errorform" id="error_emailEtu"></span></p>
+				
+				<span style="display: none;">
+					{{user_form.username}}
+				</span>
+				
+				<style>
+					.form-group {
+						position: relative;
+					}
+					.fom {
+					  align-items: center !important;
+					  display: flex;
+					}
+					.far {
+					  position: absolute;
+					  top: 15px;
+					  right: 4%;
+					  cursor: pointer;
+					  color: rgb(48, 48, 48);
+					  font-size: 20px;
+					}
+
+				</style>
+
+
     <p>{{ message }}</p>
     <form method="post">
         {{ form.as_p }}
