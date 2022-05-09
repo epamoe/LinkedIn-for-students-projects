@@ -105,3 +105,17 @@ def register_investor(request):
         'err2':err2,
     }
     return render(request, 'users/register_investor.html', context)
+
+
+def update_profile_invest(request):
+
+    
+     return render(request, 'users/update_profile_invest.html')
+
+
+def update_profile_student(request):
+
+    
+    return render(request, 'users/update_profile_student.html')
+
+
