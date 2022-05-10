@@ -8,3 +8,7 @@ from django.shortcuts import render
 
 def accueil(request):
     return render(request, 'posts/accueil.html')
+
+
+def index(request):
+    return render(request, 'posts/index.html')
