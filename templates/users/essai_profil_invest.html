@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} FindInvest | Profile Etudiant {% endblock %}
+{% block title %} FindInvest | Update Profile {% endblock %}
 
 {% block content %}
 
@@ -10,7 +10,6 @@
 		margin-top:20px;
 		background-color:#f2f6fc;
 		color:#69707a;
-		font-family: georgia;
 	}
 	.img-account-profile {
 	    height: 10rem;
@@ -69,7 +68,7 @@
 	}
 
 	.card{
-		border-top: #0b5ce7 solid 2px;
+		border-top: #0b5ed7 solid 2px;
       	/* border-radius: 20px; */
 	}
 
@@ -79,47 +78,33 @@
 	select{
 		height: 41px !important;
 	}
-	div .info{
-		color: #000000;
-		font-size: large;
-		box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 8%);
-		padding: 1px;
-		background-color: #eef8fc ;
-		text-align: center;
-	}
-	.card .info{
-		border-radius: 30%;
-	}
-	#mail{
-		color: #0b5ceb;
-	}
-	
-
 
 </style>
 
 <div class="container px-4 mt-4">
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
     <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="" target="__blank">Profil</a>
+        <a class="nav-link ms-0" href="" target="__blank">Accueil</a>
+        <a class="nav-link active ms-0" href="" target="__blank">Modifier profil</a>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-md-4">
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Centre Profil</div>
+                <div class="card-header">Photo de profil</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="{{request.user.etudiant.photoProfil.url}}" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" src="{{request.user.investisseur.photoProfil.url}}" alt="">
+                    
+                    <div>
+                    	<input type="file" name="photoProfil" accept="image/*" id="id_photoProfil" class="form-control">
+                    </div>
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">
-						<p class="info"> Pharil Esamba</p>
-						{{request.user.username}}</div>
+                    <div class="small font-italic text-muted mb-4">{{request.user.username}}</div>
                     <!-- Profile picture upload button-->
-                    <!-- Retirer le champs changer la photo 
-                    <button class="btn-orange" type="button">Changer la photo</button> -->
+                    <button class="btn-bleu" type="button">Changer la photo</button>
                 </div>
             </div>
         </div>
@@ -132,59 +117,42 @@
                     <div class="row gx-3">
                         <!-- Form Group (first name)-->
                         <div class="col-md-12">
-							<!--
-                            <label class="small mb-1" for="Nom">Noms et prénoms : </label> -->
-							<p class="info"><i class="fa-solid fa-user"></i> Pharil Esamba Dieudonne</p> 
-							<!--Debut de la presentation du nom
-							<p><span class="errorform" id="error_last_nameEtu"></span></p> -->
-							
-                        </div>
+                            <label class="small mb-1" for="id_last_name">Noms et prénoms*</label>
+                            {{user_form.last_name}}
+							<p><span class="errorform" id="error_last_nameEtu"></span></p>                        </div>
                     </div>
                     <!-- Form Row        -->
                     <div class="row gx-3">
-                        <!-- profession-->
+                        <!-- Niveau-->
                         <div class="col-md-6">
-							<!--
-							<label class="small mb-1" for="profession">Profession</label>
-							-->
-							{{invest_form.profession}}
-							<p class="info"> Medecin</p>
-							<!-- Niveau d'Etude
-							<p><span class="errorform" id="error_niveauEtudeEtu"></span></p> -->
+                            <label class="small mb-1" for="id_profession">Profession</label>
+                            {{invest_form.profession}}
+							<p><span class="errorform" id="error_professionInv"></span></p>
                         </div>
 
-                        <!-- Entreprise-->
+                        <!-- Université-->
                         <div class="col-md-6">
-							<!--
-                            <label class="small mb-1" for="université">Nom de l'université</label> -->
-							{{etu_form.universite}}
-							<p class="info"><i class="fa-solid fa-school"></i> Hopital de discrit d'Emana</p>
-							<!-- 
-							<p><span class="errorform" id="error_univEtu"></span></p> -->
+                            <label class="small mb-1" for="id_entreprise">Nom de l'entreprise</label>
+                            {{invest_form.entreprise}}
+							<p><span class="errorform" id="error_entrepriseInv"></span></p>
                         </div>
                     </div>
                     <div class="row gx-3">
                         <div class="col-md-6">
-							<!--
-							<label class="small mb-1" for="ville">Ville de résidence :</label> -->
-							<p class="info"> <i class="fa-solid fa-location-dot"></i>Yaoundé</p>
-							{{etu_form.ville}}
-							<!-- 
-							<p><span class="errorform" id="error_villeEtu"></span></p>-->
+                            <label class="small mb-1" for="id_objectifs">Vos objectif sur la plateforme</label>
+                            {{invest_form.objectifs}}
+							<p><span class="errorform" id="error_objectifsInv"></span></p>
                         </div>
                         <div class="col-md-6">
-							<!--
-							<label class="small mb-1" for="Tel">Numéro de téléphone :</label> -->
-							<p class="info"><i class="fa-solid fa-phone"></i> 657762942/670824953</p>
-							{{etu_form.telephone}}
-							<!-- 
-							<p><span class="errorform" id="error_telephoneEtu"></span></p>-->
-                        </div>
-                        <div class="col-md-12">
-							<p class="info"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis amet ipsum laudantium consequatur, doloribus, deleniti esse dolores ad magnam repellat fugit ipsam iure libero. Deserunt molestias quisquam quod minus. Debitis. </p>
-                            {{etu_form.bio}}
-                        </div> 
-                    </div>
+                            <label class="small mb-1" for="id_ville">Ville</label>
+							{{invest_form.ville}}
+							<p><span class="errorform" id="error_villeEtu"></span></p>
+                        </div>  
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_telephone">Numéro de téléphone</label>
+							{{invest_form.telephone}}
+							<p><span class="errorform" id="error_telephoneEtu"></span></p>
+                        </div>                    </div>
                     <div class="row gx-3">
                            
                     </div>
@@ -199,17 +167,13 @@
                     <div class="row gx-3">
                         <!-- Adresse mail-->
                         <div class="col-md-12">
-							<!--
-							<label class="small mb-1" for="Adresse">Adresse mail</label> -->
-							<p class="info"  id="mail"><i class="fa-solid fa-at"></i> essamaloren@gmail.com</p>
-							<!--
-							{% if user_form.username.errors %}
+                            <label class="small mb-1" for="Adresse">Adresse mail</label>
+                            {% if user_form.username.errors %}
 								<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
 							{% endif %}
-							<p><span class="errorform" id="error_emailEtu"></span></p>
-							-->
+
 							{{user_form.email}}
-							
+							<p><span class="errorform" id="error_emailEtu"></span></p>
                         </div>
                     </div>
 
@@ -230,57 +194,50 @@
 						  font-size: 20px;
 						}
 					</style>
-					
-					<!-- <div style="display: none;"> -->
-					<div>
+
+					<div style="display: none;">
 						{{user_form.username}}
 					</div>
-                    <!-- Form Row-->
-                    <div class="row gx-3">
-                        <!-- Mot de passe
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Mdp">Mot de passe</label>
-                            <div class="form-group mb-4">
-								<div class="fom"> 
-									{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
-								</div>
-							</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="confirme-mdp">Confirmer mot de passe</label>
-                            
-							{{user_form.password2}}
-							{{user_form.password2.errors}}
-                        </div>
-                    </div>
-					-->
-                    <div class="row gx-3">
+
+					<div class="row gx-3">
                         <!-- Question de sécurité-->
                         <div class="col-md-12">
-                            <label class="small mb-1" for="Niveau"> Question à répondre en cas d'oublie de votre mot de passe : </label>
-							{{etu_form.question}}
-							<p class="info"> Quel est votre groupe sanguin </p>
-							<!--
-							<p><span class="errorform" id="error_questionEtu"></span></p>
-							-->
+                            <label class="small mb-1" for="id_question">Nouvelle question (à répondre en cas d'oublie de votre mot de passe*)</label>
+							{{invest_form.question}}
+							<p></p>
+                        </div>
+                        <!-- Réponse de sécurité-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_reponse">Votre réponse </label>
+							{{invest_form.reponse}}
+							<p><span class="errorform" id="error_questionInv"></span></p>
                         </div>
                     </div>
+                    <!-- Form Row-->
                     <div class="row gx-3">
-                        <!-- Réponse de sécurité
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Université">Votre réponse </label>
-							{{etu_form.reponse}}
+
+                        <!-- Mot de passe-->
+                        <div class="col-md-6" style="display: none;">
+                            <label class="small mb-1" for="confirme-mdp">Mot de passe</label>
+							{{user_form.password1}}
                         </div>
-					</div>
-					-->
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Mdp">Confirmez les mofications en entrant votre mot de passe</label>
+                            <div class="form-group mb-4">
+								<div class="fom"> 
+									{{user_form.password2}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+								</div>
+								{{user_form.password2.errors}}
+							</div>
+                        </div>
+                    </div>
 
                     <div class="row my-3">
-                        <!-- Save changes button
+                        <!-- Save changes button-->
                         <div class="col-sm-6 mt-3 offset-sm-3 text-center">
-                            <input class="btn-orange px-5" type="submit" value="Enregistrer">
+                            <input class="btn-bleu px-5" type="submit" value="Enregistrer">
                     	</div>
-					</div>
-					-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -331,10 +288,10 @@
 
 
 	// préremplir le mdp
-
 	password1.autocomplete="current-password";
 
 
+	// valider le formulaire
     
 </script>
 
