@@ -6,5 +6,27 @@
 {% block content %}
   <br><br><br>
   <h1>Accueil</h1>
+  <br><br>
+
+{% if user.is_authenticated %}
+    <h4>Bienvenue <u>{{request.user.last_name}}</u></h4> <br>
+    {% if user.etudiant.id %}
+        <a href="{% url 'update_profile_student' %}">Modifier profil Etudiant</a> 
+        <br><br><br>
+        <a href="{%url 'profil_student' request.user.etudiant.id%}">profil etudiant</a>
+    {% endif %}
+    {% if user.investisseur.id %}
+        <a href="{% url 'update_profile_investor'%}">Modifier profil Investisseur</a> 
+        
+        <br><br>
+        <a href="{%url 'profile_investor' request.user.investisseur.id%}">profil investisseur</a>
+        {% endif %}
+    
+    
+  
+    
+
+{% endif %} 
 
 {% endblock %}
+

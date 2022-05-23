@@ -83,4 +83,3 @@ class Investisseur(Utilisateur):
     def __str__(self):
         return self.user.username
     
-    
