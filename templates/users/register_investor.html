@@ -21,11 +21,8 @@
 		justify-content: center;
 		align-items: center;
 		min-height: 100vh;
-		/* background: #0b5ed7; */
+		background-image: url('../../static/img/bgform2.jpeg');
 		transition: 0.5s; 
-	}
-	body.active{
-		 background: #ff8c2e; 
 	}
 	.contain{
 		position: relative;
@@ -39,12 +36,13 @@
 		justify-content: center;
 		align-items: center;
 		/* background: rgba(255, 255, 255, 0.2); */
-		background: #0b5ed7;
+		background: #0b5dd7;
 		width: 100%;
 		height: 420px;
 		top: 90px;
 		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.15);
 		border-radius: 10px;
+		
 	}
 	.blueBg .box{
 		position: relative;
@@ -228,11 +226,11 @@
 	<div class="blueBg">
 		<div class="box un">
 			<h2>Vous avez déja un compte ?</h2>
-			<a class="btn-blanc" href="">Connexion</a>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
 		</div>
 		<div class="box deux">
 			<h2>Vous avez déja un compte ?</h2>
-			<a class="btn-blanc" href="">Connexion</a>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
 		</div>
 	</div>
 	<form action="" method="POST">
@@ -382,6 +380,13 @@
 			}
 		});
 	}
+
+	window.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			document.getElementById("myBtn").click();
+		}
+	});
+	
 	champsForm[1].placeholder="Noms et prénoms*";
 	champsForm[2].placeholder="Profession actuelle*";
 	champsForm[3].placeholder="Votre entreprise (optionnel)";

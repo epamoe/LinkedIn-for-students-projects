@@ -164,7 +164,7 @@ def update_profile_student(request):
     #etudiant = Etudiant.objects.get(id=id_e)
     
     # identifier le user associé à cet etudiant, par son id
-   # user = User.objects.get(id=etudiant.user.id)
+    #user = User.objects.get(id=etudiant.user.id)
     
     # remplir le formulaire avec les info de l'etudiant
     etu_form = EtuForm(instance=etudiant)
@@ -192,7 +192,7 @@ def update_profile_student(request):
                     logout(request)
                 login(request, user_log)
             # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('../../../accueil')
+            return HttpResponseRedirect('/')
         else:
             err1 = user_form.errors
             err2 = etu_form.errors
@@ -204,7 +204,7 @@ def update_profile_student(request):
         'err1':err1,
         'err2':err2,
     }
-    return render(request, 'users/updateprofile_student.html', context)
+    return render(request, 'users/update_profile_student.html', context)
 
 
 
@@ -221,7 +221,7 @@ def update_profile_investor(request):
     #investisseur = Investisseur.objects.get(id=id_i)
     
     # identifier le user associé à cet investissuer, par son id
-   # user = User.objects.get(id=investisseur.user.id)
+    #user = User.objects.get(id=investisseur.user.id)
     
     # remplir le formulaire avec les info de l'etudiant
     invest_form = InvestForm(instance=investisseur)
@@ -249,7 +249,7 @@ def update_profile_investor(request):
                     logout(request)
                 login(request, user_log)
             # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('')
+            return HttpResponseRedirect('/')
         else:
             err1 = user_form.errors
             err2 = invest_form.errors
@@ -261,10 +261,13 @@ def update_profile_investor(request):
         'err1':err1,
         'err2':err2,
     }
-    return render(request, 'users/update_profil_investor.html', context)
+    return render(request, 'users/update_profile_investor.html', context)
+
+
 
 
 #consulter profil
+@login_required(login_url='connexion')
 def profil_student(request,id_e):
     etudiant=Etudiant.objects.get(id=id_e)
     user=User.objects.get(id=etudiant.user.id)
@@ -278,6 +281,7 @@ def profil_student(request,id_e):
 
 
 #consulter profil investisseur
+@login_required(login_url='connexion')
 def profile_investor(request,id_i):
     investor=Investisseur.objects.get(id=id_i)
     user=User.objects.get(id=investor.user.id)

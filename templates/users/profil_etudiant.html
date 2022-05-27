@@ -30,7 +30,7 @@
 	.card-header {
 	    padding: 1rem 1.35rem;
 	    margin-bottom: 0;
-	    background-color: rgba(33, 40, 50, 0.03);
+	    background-color: rgba(119, 158, 212, 0.03);
 	    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
 	}
 	.form-control, .dataTable-input {
@@ -52,8 +52,8 @@
 	}
 
 	.nav-borders .nav-link.active {
-	    color: #ff8c2e;
-	    border-bottom-color: #ff8c2e;
+	    color: #2e54ff;
+	    border-bottom-color: #662eff;
 	}
 	.nav-borders .nav-link {
 	    color: #69707a;
@@ -80,12 +80,13 @@
 		height: 41px !important;
 	}
 	div .info{
-		color: #000000;
+		color: #fff;
 		font-size: large;
-		box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 8%);
+		box-shadow: 1px 1px 5px 0 rgba(103, 149, 214, 0.63);
 		padding: 1px;
-		background-color: #f3efec ;
+		background-color: rgba(0, 0, 0, 0.849) ;
 		text-align: center;
+        border-radius: 18%;
 	}
 	.card .info{
 		border-radius: 30%;
@@ -98,195 +99,6 @@
 
 </style>
 
-<div class="container px-4 mt-4">
-<form action="" method="POST">
-	{% csrf_token %}
-    <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="" target="__blank">Profil</a>
-    </nav>
-    <hr class="mt-0 mb-4">
-    <div class="row">
-        <div class="col-md-4">
-            <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Centre Profil</div>
-                <div class="card-body text-center">
-                    <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">
-						<p class="info"> {{user.last_name}} </p>
-						{{request.user.username}}</div>
-                    <!-- Profile picture upload button-->
-                    <!-- Retirer le champs changer la photo 
-                    <button class="btn-orange" type="button">Changer la photo</button> -->
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <!-- Account details card-->
-            <div class="card mb-4">
-                <div class="card-header">Détail du compte</div>
-                <div class="card-body">
-                    <!-- Form Row-->
-                    <div class="row gx-3">
-                        <!-- Form Group (first name)-->
-                        <div class="col-md-12">
-							<!--
-                            <label class="small mb-1" for="Nom">Noms et prénoms : </label> -->
-							<p class="info"><i class="fa-solid fa-user"></i> {{user.last_name}}</p> 
-							<!--Debut de la presentation du nom
-							<p><span class="errorform" id="error_last_nameEtu"></span></p> -->
-							
-                        </div>
-                    </div>
-                    <!-- Form Row        -->
-                    <div class="row gx-3">
-                        <!-- Niveau-->
-                        <div class="col-md-6">
-							<div class="col-md-6">
-								<label class="small mb-1" for="niveau"> </label>
-								{{etudiant.niveauEtude}}
-								<p><span class="errorform" id="error_niveauEtudeEtu"></span></p>
-							</div>
-                        </div>
-
-                        <!-- Université-->
-                        <div class="col-md-6">
-							<!--
-                            <label class="small mb-1" for="université">Nom de l'université</label> -->
-							{{etu_form.universite}}
-							<p class="info"><i class="fa-solid fa-school"></i> {{etudiant.universite}}</p>
-							<!-- 
-							<p><span class="errorform" id="error_univEtu"></span></p> -->
-                        </div>
-                    </div>
-                    <div class="row gx-3">
-                        <div class="col-md-6">
-							<!--
-							<label class="small mb-1" for="ville">Ville de résidence :</label> -->
-							<p class="info"> <i class="fa-solid fa-location-dot"></i>{{etudiant.ville}}</p>
-							{{etu_form.ville}}
-							<!-- 
-							<p><span class="errorform" id="error_villeEtu"></span></p>-->
-                        </div>
-                        <div class="col-md-6">
-							<!--
-							<label class="small mb-1" for="Tel">Numéro de téléphone :</label> -->
-							<p class="info"><i class="fa-solid fa-phone"></i>{{etudiant.telephone}}</p>
-							{{etu_form.telephone}}
-							<!-- 
-							<p><span class="errorform" id="error_telephoneEtu"></span></p>-->
-                        </div>
-                        <div class="col-md-12">
-							<p class="info">{{etudiant.bio}}</p>
-                            {{etu_form.bio}}
-                        </div> 
-                    </div>
-                    <div class="row gx-3">
-                           
-                    </div>
-                </div>
-            </div>
-
-            <!-- Authrntification details card-->
-            <div class="card mb-4">
-                <div class="card-header">Information de connexion</div>
-            	<div class="card-body">
-                    <!-- Form Row-->
-                    <div class="row gx-3">
-                        <!-- Adresse mail-->
-                        <div class="col-md-12">
-							<!--
-							<label class="small mb-1" for="Adresse">Adresse mail</label> -->
-							<p class="info"  id="mail"><i class="fa-solid fa-at"></i> {{user.email}}</p>
-							<!--
-							{% if user_form.username.errors %}
-								<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
-							{% endif %}
-							<p><span class="errorform" id="error_emailEtu"></span></p>
-							-->
-							{{user_form.email}}
-							
-                        </div>
-                    </div>
-
-                    <style>
-						.form-group {
-							position: relative;
-						}
-						.fom {
-						  align-items: center !important;
-						  display: flex;
-						}
-						.far {
-						  position: absolute;
-						  top: 15px;
-						  right: 4%;
-						  cursor: pointer;
-						  color: rgb(48, 48, 48);
-						  font-size: 20px;
-						}
-					</style>
-					
-					<!-- <div style="display: none;"> -->
-					<div>
-						{{user_form.username}}
-					</div>
-                    <!-- Form Row-->
-                    <div class="row gx-3">
-                        <!-- Mot de passe
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Mdp">Mot de passe</label>
-                            <div class="form-group mb-4">
-								<div class="fom"> 
-									{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
-								</div>
-							</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="confirme-mdp">Confirmer mot de passe</label>
-                            
-							{{user_form.password2}}
-							{{user_form.password2.errors}}
-                        </div>
-                    </div>
-					-->
-                    <div class="row gx-3">
-                        <!-- Question de sécurité-->
-                        <div class="col-md-12">
-                            <label class="small mb-1" for="Niveau">Nouvelle question: </label>
-							{{etudiant.question}}
-							<p></p>
-                        </div>
-                        <!-- Réponse de sécurité-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Université">Votre réponse:  </label>
-							{{etudiant.reponse}}
-							<p><span class="errorform" id="error_questionEtu"></span></p>
-                        </div>
-                    </div>  <div class="row gx-3">
-                        <!-- Réponse de sécurité
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Université">Votre réponse </label>
-							{{etu_form.reponse}}
-                        </div>
-					</div>
-					-->
-
-                    <div class="row my-3">
-                        <!-- Save changes button
-                        <div class="col-sm-6 mt-3 offset-sm-3 text-center">
-                            <input class="btn-orange px-5" type="submit" value="Enregistrer">
-                    	</div>
-					</div>
-					-->
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
 
 
 <script>
@@ -337,5 +149,172 @@
 
     
 </script>
+    <style>
+
+        .body{
+            background: #ff8c2e;
+            background-size: contain;
+            height: 50%;
+            width: 100%;
+            
+        }
+
+        .contain{
+        	display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+            .profil{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                background: #fff;
+                border-radius: 20px;
+                box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.459);
+            }
+
+            @media screen and (min-width: 992px) {
+                
+                .barre{
+                    position: relative;
+                    left: 0;
+                    width: 300px;
+                    position: relative;
+                    height: 500px;
+                    background: #ff8c2e;
+                    border-top-left-radius: 15px;
+                    border-bottom-left-radius: 15px;
+                }
+                .image{
+                    position: relative;
+                    left: -150px;
+                }
+                .image img{
+                    width: 300px;
+                    height: 300px;
+                }
+                .desc{
+                    position: relative;
+                    width: 300px;
+                    left: -100px;
+                }
+            }
+
+            @media screen and (min-width: 768px) and (max-width: 991px) {
+                .profil{
+                    margin: 0 100px;
+                }
+                .barre{
+                    position: relative;
+                    top: 0;
+                    width: 100%;
+                    position: relative;
+                    height: 200px;
+                    background: #ff8c2e;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                }
+                .image{
+                    position: relative;
+                    top: -150px;
+                }
+                .image img{
+                    width: 300px;
+                    height: 300px;
+                }
+                .desc{
+                    position: relative;
+                    width: 500px;
+                    margin: 0 50px;
+                    top: -100px;
+                }
+            }
+
+            @media screen and (max-width: 767px) {
+                .profil{
+                    position: relative;
+                    margin: 0 10px;
+                }
+                .barre{
+                    position: relative;
+                    width: 100%;
+                    position: relative;
+                    height: 200px;
+                    background: #ff8c2e;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                }
+                .image{
+                    position: relative;
+                    top: -100px;
+                }
+                .image img{
+                    width: 300px;
+                    height: 250px;
+                }
+                .desc{
+                    position: relative;
+                    margin: 0 15px;
+                    top: -50px;
+                }
+            }
+
+            .image img{
+                border-radius: 20px;
+                /* box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.459); */
+            }
+
+            .inf{
+                
+                color: black;
+                padding: 5%;
+                margin-left: 50px;
+            }
+            .prof{
+                background-color: #ff8c2e;
+                color: black;
+                margin-left: 200px;
+            }
+
+
+</style>
+    <div class="body">
+        <div class="contain">
+            <div class="profil">
+                <div class="barre">
+                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi ratione doloribus vel similique enim perferendis, itaque magnam hic aperiam, quis molestias labore ea. Nisi at quaerat, sed exercitationem eos dolore. -->
+                </div>
+                <div class="image">
+                    <div class="card-body text-center">
+                        <div class="small font-italic text-muted mb-4">
+                            <img class="img-account-profile rounded-circle mb-2"  src="../../static/img/vue.png" alt="">
+                            <p class="info"> {{user.last_name}} </p>
+                            {{request.user.username}}
+                        </div>
+                    </div>
+                </div>
+                <div class="desc">
+                    <h1 class="inf"><i><b>{{user.last_name}}</b></i></h1>
+                    <p class="info"><i class="fa-solid fa-niveau">Niveau:</i> {{etudiant.niveauEtude}}</p>
+                    <p class="info"><i class="fa-solid fa-school">Université:</i> {{etudiant.universite}}</p>
+                    <p class="info"> <i class="fa-solid fa-location-dot">Ville:</i>{{etudiant.ville}}</p>
+                    {{etu_form.ville}}
+                    <p class="info"><i class="fa-solid fa-phone">tel:</i>{{etudiant.telephone}}</p>
+					{{etu_form.telephone}}
+                    <p class="info">{{etudiant.bio}}</p>
+                    {{etu_form.bio}}
+                    <button class="prof">
+                        <a  href="{url 'update_profile_student'}">actualiser</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+                
 
 {% endblock %}
