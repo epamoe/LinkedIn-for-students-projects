@@ -419,12 +419,23 @@
                 margin-left: 50px;
             }
             .prof{
-                background-color: #0b5ed7;
+                background-color: #ff8c2ef5;
                 color: black;
-                margin-left: 200px;
+                margin-left: 80px;
+				padding-bottom: 0%;
             }
-
-
+			
+			.font-weight-bold{
+				color:#ff8c2e;
+			}
+			
+			.bg-primary{
+				color: #000000;
+			}
+			.test{
+				color: #000000;
+				box-shadow: 20 20px 20px 20px rgba(27, 27, 27, 0.596); 
+			}
 </style>
     <div class="body">
         <div class="contain">
@@ -442,7 +453,36 @@
                     </div>
                 </div>
                 <div class="desc">
-                    <h1 class="inf"><i><b>{{user.last_name}}</b></i></h1>
+					<h3 class="mt-3 text-center">MES INFORMATIONS</h3>
+					<hr class="bg-primary">
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="font-weight-bold">Email: </p>
+							<h6 class="text-muted">{{user.last_name}}</h6>	
+						</div>
+						<div class="col-sm-6">
+							<p class="font-weight-bold">Profession:</p>
+							<h6 class="text-muted1">{{investor.profession}}</h6>
+						</div>
+					</div>
+					<h4 class="mt-3 text-center">INFOS SUPPLEMEENTAIRES</h4>
+					<hr class="bg-primary">
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="font-weight-bold">ville:</p>
+							<h6 class="text-muted">{{investor.ville}}</h6>	
+						</div>
+						<div class="col-sm-6">
+							<p class="font-weight-bold">contact:</p>
+							<h6 class="text-muted">{{investor.telephone}}</h6>	
+						</div>
+					</div>
+					<br><br>
+					<button class="prof">
+						<a class="test"  href="{url 'update_profile_investor'}">actualiser</a>
+					</button>
+                    <!--
+					<h1 class="inf"><i><b>{{user.last_name}}</b></i></h1>
                     <p class="info"><i class="fa-solid fa-niveau">Niveau:</i> {{investor.profession}}</p>
 					<p class="info"><i class="fa-solid fa-school">lieu de travail:</i> {{investor.universite}}</p>
                     <p class="info"> <i class="fa-solid fa-location-dot">Ville:</i>{{investor.ville}}</p>
@@ -453,7 +493,9 @@
                     {{invest_form.bio}}
                     <button class="prof">
                         <a  href="{url 'update_profile_investor'}">actualiser</a>
-                    </button>
+                    </button>		
+					-->
+					
                 </div>
             </div>
         </div>

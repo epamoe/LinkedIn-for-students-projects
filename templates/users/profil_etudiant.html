@@ -276,11 +276,22 @@
                 margin-left: 50px;
             }
             .prof{
-                background-color: #ff8c2e;
+                background-color: #0b5ceb;
                 color: black;
-                margin-left: 200px;
+                margin-left: 80px;
             }
 
+			.font-weight-bold{
+				color:#0b5ceb
+			}
+			
+			.bg-primary{
+				color: #000000;
+			}
+			.test{
+				color: #000000;
+				box-shadow: 20 20px 20px 20px rgba(27, 27, 27, 0.596); 
+			}
 
 </style>
     <div class="body">
@@ -299,7 +310,36 @@
                     </div>
                 </div>
                 <div class="desc">
-                    <h1 class="inf"><i><b>{{user.last_name}}</b></i></h1>
+                    <h3 class="mt-3 text-center"> INFORMATIONS SUR <b>{{user.last_name}}</b></h3>
+					<hr class="bg-primary">
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="font-weight-bold">Niveau: </p>
+							<h6 class="text-muted">{{etudiant.niveauEtude}}</h6>	
+						</div>
+						<div class="col-sm-6">
+							<p class="font-weight-bold">Université:</p>
+							<h6 class="text-muted1">{{etudiant.universite}}</h6>
+						</div>
+					</div>
+					<h4 class="mt-3 text-center">INFOS SUPPLEMEENTAIRES</h4>
+					<hr class="bg-primary">
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="font-weight-bold">ville:</p>
+							<h6 class="text-muted">{{etudiant.ville}}</h6>	
+						</div>
+						<div class="col-sm-6">
+							<p class="font-weight-bold">contact:</p>
+							<h6 class="text-muted">{{etudiant.telephone}}</h6>	
+						</div>
+					</div>
+					<br>
+					<button class="prof">
+						<a class="test"  href="{url 'update_profile_student'}">actualiser</a>
+					</button>
+                    <!--
+                        <h1 class="inf"><i><b>{{user.last_name}}</b></i></h1>
                     <p class="info"><i class="fa-solid fa-niveau">Niveau:</i> {{etudiant.niveauEtude}}</p>
                     <p class="info"><i class="fa-solid fa-school">Université:</i> {{etudiant.universite}}</p>
                     <p class="info"> <i class="fa-solid fa-location-dot">Ville:</i>{{etudiant.ville}}</p>
@@ -311,6 +351,8 @@
                     <button class="prof">
                         <a  href="{url 'update_profile_student'}">actualiser</a>
                     </button>
+                    -->
+                    
                 </div>
             </div>
         </div>
