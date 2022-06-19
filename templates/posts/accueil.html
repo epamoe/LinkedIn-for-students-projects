@@ -153,7 +153,9 @@
             </div>
 
             <!-- ------------ end of sidebar --------- -->
+            {% if request.user.etudiant.id %}
             <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Create post</label>
+            {% endif %}
         </div>
         <!-- ============== END OF LEFT =============== -->
 
@@ -242,7 +244,7 @@
                             </p>
                             {% if post.media %}
                                 <p>
-                                    <a href="{{post.media.url}}" download="FindInvest_Document">Autres documents</a>
+                                    <a href="{{post.media.url}}" download="FindInvest_Document">Description détaillée PDF</a>
                                 </p>
                             {% endif %}
                         </div>
@@ -267,11 +269,11 @@
                             <div>
                             </div>
                             <div class="favorite">
-                                {% if request.user.investisseur.id %}
-                                    <a href="{% url 'createRoom' request.user.id post.etudiant.user.id post.title %}"><i class="uil uil-comments-alt"></i></a>
-                                {% endif %}
-                                &emsp;
                                 <span><i class="uil uil-favorite"></i></span>
+                                &emsp;
+                                {% if request.user.investisseur.id %}
+                                    <a id="btn-disc" href="{% url 'createRoom' request.user.id post.etudiant.user.id post.title %}"><i class="uil uil-comments-alt"></i></a>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -501,7 +503,7 @@
                                 </span>
                                 <p></p>
                                 <p class="text-muted">
-                                    Ci-dessous la lsite de vos discussions
+                                    Ci-dessous la liste de vos discussions
                                 </p>
                                 {% comment %} <p class="text-muted">
                                     <b>Sujets :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam perferendis repudiandae repellat quidem tempore voluptatibus enim distinctio est nesciunt eveniet.

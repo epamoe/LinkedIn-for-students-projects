@@ -27,116 +27,73 @@
     .chat {
         border-top: none !important;
     }
+    h5{
+        font-size: 1rem;
+    }
+
+    .modal-header{
+        align-items: start;
+    }
 </style>
 
 <div class="modal fade show" id="discussionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header pb-0">
-                <!-- <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
-                <i class="uil uil-multiply" data-bs-dismiss="modal" aria-label="Close"></i> -->
-                {% for r in roomList %}
-                {% if r.name == room %}
-                    {% if r.user1 == request.user.last_name %}
-                        <div class="info">
-                            <div class="profile-photo">
-                                {% for u in userList %}
-                                    {% if u.last_name == r.user2 %}
-                                    <img src="{{u.etudiant.photoProfil.url}}" alt="">
-                                    {% endif %}
-                                {% endfor %}
+                <!-- -----------titre de la discussion-------------- -->
+                <div class="titre">
+                    {% for r in roomList %}
+                    {% if r.name == room %}
+                        {% if r.user1 == request.user.last_name %}
+                            <div class="info">
+                                <div class="profile-photo">
+                                    {% for u in userList %}
+                                        {% if u.last_name == r.user2 %}
+                                        <img src="{{u.etudiant.photoProfil.url}}" alt="">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <span>
+                                        <h5>{{r.user2}}</h5>
+                                    </span>
+                                    <p class="text-muted mb-0">
+                                        <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <span>
-                                    <h5>{{r.user2}}</h5>
-                                </span>
-                                <p class="text-muted mb-0">
-                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
-                                </p>
+                        {% else %}
+                            {% if r.user2 == request.user.last_name %}
+                            <div class="info">
+                                <div class="profile-photo">
+                                    {% for u in userList %}
+                                        {% if u.last_name == r.user1 %}
+                                            <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <span>
+                                    <h5>{{r.user1}}</h5>
+                                    </span>
+                                    <p class="text-muted mb-0">
+                                        <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    {% else %}
-                        {% if r.user2 == request.user.last_name %}
-                        <div class="info">
-                            <div class="profile-photo">
-                                {% for u in userList %}
-                                    {% if u.last_name == r.user1 %}
-                                        <img src="{{u.investisseur.photoProfil.url}}" alt="">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div>
-                                <span>
-                                <h5>{{r.user1}}</h5>
-                                </span>
-                                <p class="text-muted mb-0">
-                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
-                                </p>
-                            </div>
-                        </div>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
-                {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <div>
+                    <i class="uil uil-multiply" onclick="history.back()"  data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
             </div>
+
+            <!-- ----------liste des messages------------ -->
             <div class="modal-body">
                 <div class="discussionMod active">
-                    <!-- <div class="info">
-                        <div class="profile-photo">
-                            <img src="{{u.investisseur.photoProfil.url}}" alt="">
-                        </div>
-                        <div>
-                            <span>
-                            <h5>room other user name</h5>
-                            </span>
-                            <p class="text-muted mb-0">
-                                room name
-                            </p>
-                        </div>
-                    </div> -->
-                <!-- {% for r in roomList %}
-                {% if r.name == room %}
-                    {% if r.user1 == request.user.last_name %}
-                        <div class="info">
-                            <div class="profile-photo">
-                                {% for u in userList %}
-                                    {% if u.last_name == r.user2 %}
-                                    <img src="{{u.etudiant.photoProfil.url}}" alt="">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div>
-                                <span>
-                                    <h5>{{r.user2}}</h5>
-                                </span>
-                                <p class="text-muted mb-0">
-                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
-                                </p>
-                            </div>
-                        </div>
-                    {% else %}
-                        {% if r.user2 == request.user.last_name %}
-                        <div class="info">
-                            <div class="profile-photo">
-                                {% for u in userList %}
-                                    {% if u.last_name == r.user1 %}
-                                        <img src="{{u.investisseur.photoProfil.url}}" alt="">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div>
-                                <span>
-                                <h5>{{r.user1}}</h5>
-                                </span>
-                                <p class="text-muted mb-0">
-                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
-                                </p>
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-                {% endfor %} -->
                     <div id="chat" class="chat pt-4">
                         <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                             <div>
@@ -145,30 +102,32 @@
                                 </div>
                             </div>
                             <div>
-                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                    Sure
+                                <span class="card card-text-left d-inline-block py-3 px-5 ms-1">
+                                    
                                 </span>
                                 <br>
                                 <div class="ms-2">
-                                    <span class="text-muted">01:13PM</span>
+                                    <span class="text-muted bg-secondary rounded px-4"></span>
                                 </div>
                                 <br>
                             </div>
                         </div>
                         <div class="disc-right d-flex align-items-baseline text-end justify-content-end">
                             <div class="right-messages">
-                                <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                    Let me know when you're available?
+                                <span class="card card-text-right d-inline-block text-start py-3 px-5 me-1">
+                                    
                                 </span>
                                 <br>
                                 <div class="me-2">
-                                    <span class="text-muted">01:13PM</span>
+                                    <span class="text-muted bg-secondary rounded px-4"></span>
                                 </div>
                                 <br>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- ------------formulaire d'envoie de essage--------------- -->
                 <div class="disc-send active">
                     <form id="post-form">
                         {% csrf_token %}

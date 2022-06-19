@@ -80,8 +80,8 @@ h4, h5, h6, a{
     aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;
+    border: var(--color-primary) dashed 1px;
 }
-
 img{
     display: block;
     width: 100%;
@@ -543,6 +543,12 @@ main .container .left .profile .handle p{
     transition: 0.3s;
 }
 
+.action-buttons #btn-disc{
+    color: var(--color-primary);
+    border: var(--color-primary) dashed 1px;
+    border-radius: 50%;
+}
+
 .middle .posts .post .liked-by{
     display: flex;
 }
@@ -894,6 +900,11 @@ main .container .right{
 
 
 /* ------------- chat ----------- */
+
+
+.avatar {
+    border: var(--color-primary) dashed 1px;
+}
 
 .discussionMod .chat{
     border-top: #dee2e6 solid 1px;

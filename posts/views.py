@@ -138,11 +138,6 @@ def delete_post(request, pk):
     projet_del.delete()
     return HttpResponseRedirect('../accueil')
 
-    # context = {
-    #     'projet_del': projet_del
-    # }
-
-    # return render(request, 'posts/delete_projet.html', context)
 
 
 
@@ -151,10 +146,14 @@ def delete_post(request, pk):
 
 # page de chat
 def room(request, room):
+    room_details = ''
     username = request.GET.get('username')
-    room_details = Room.objects.get(name=room)
+    # room_details = Room.objects.get(name=room)
     roomList = Room.objects.all()
     userList = User.objects.all()
+    for r in roomList:
+        if r.name == room:
+            room_details = r
     context = {
         'username': username,
         'room': room,
@@ -170,7 +169,8 @@ def room(request, room):
 def createRoom(request, u1, u2, title):
     user1 = User.objects.get(id=u1).last_name
     user2 = User.objects.get(id=u2).last_name
-    room = title+'_'+u1+'_'+u2
+    # room = title+'_'+u1+'_'+u2
+    room = title
     if Room.objects.filter(name=room).exists():
         return redirect('/'+room+'/?username='+user1)
     else:
@@ -193,11 +193,15 @@ def send(request):
 # récupérer la liste des message d'un salon
 def getMessages(request, room):
     inv = ""
+    photo = ""
     room_details = Room.objects.get(name=room)
     for u in User.objects.all():
         if room_details.user1 == u.last_name:
-            inv = Investisseur.objects.get(id=u.investisseur.id)
-    photo = inv.photoProfil.url
+            # inv = Investisseur.objects.get(id=u.investisseur.id)
+            for i in Investisseur.objects.all():
+                if i.user.id == u.id:
+                    inv = i
+                    photo = inv.photoProfil.url
     messages = Message.objects.filter(room=room_details.id)
     context = {"messages":list(messages.values()), 'photo':photo}
     return JsonResponse(context)

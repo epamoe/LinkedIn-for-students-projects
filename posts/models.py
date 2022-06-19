@@ -43,6 +43,8 @@ class Room(models.Model):
     name = models.CharField(max_length=100)
     user1 = models.CharField(max_length=100)
     user2 = models.CharField(max_length=1000)
+    def __str__(self):
+        return self.name
 
 
 class Message(models.Model):
