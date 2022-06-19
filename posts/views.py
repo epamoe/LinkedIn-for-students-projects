@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import *
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .forms import ProjetForm
-from .models import Projet, Room
+from .models import Projet, Room, Message
 
 # Create your views here.
 
@@ -177,24 +177,30 @@ def createRoom(request, u1, u2, title):
     #         room = roo
     if Room.objects.filter(name=title).exists():
         msg = "room déja existant"
-        return redirect("/"+title+"/?username="+inv.user.last_name)
+        return redirect("/"+title+"/?username="+inv.user.username)
         return render(request, 'posts/accueil.html', {'msg':msg})
     else:
         new_room = Room.objects.create(name=title, inv=inv, etu=etu)
         new_room.save()
-        return redirect("/"+title+"/?username="+inv.user.last_name)
+        return redirect("/"+title+"/?username="+inv.user.username)
     return render(request, 'posts/accueil.html')
 
 
 # envoyer un message
-# def send(request):
-#     message = request.POST['message']
-#     username = request.POST['username']
-#     room_id = request.POST['room_id']
+def send(request):
+    # récupérer les données du formulaire
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
 
-#     new_message = Message.objects.create(value=message, user=username, room=room_id)
-#     new_message.save()
-#     return HttpResponse('Message sent successfully')
+    # retouver les objets correspondants
+    value = message
+    user = User.objects.get(username=username)
+    room = Room.objects.get(id=room_id)
+
+    new_message = Message.objects.create(value=value, user=user, room=room)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
 
 
 # récupérer la liste des message d'un salon

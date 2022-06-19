@@ -523,15 +523,16 @@
                                         {% endif %}
                                     {% endfor %}
                                     </div>
-                                    <div>
-                                        <span>
-                                            <h5>{{room.etu.user.last_name}}</h5>
-                                        </span>
-                                        <p class="text-muted mb-0">
-                                            {% comment %} {{room.name}} {% endcomment %}
-                                            <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
-                                        </p>
-                                    </div>
+                                    <a href="/{{room.name}}/?username={{request.user.username}}">
+                                        <div>
+                                            <span>
+                                                <h5>{{room.etu.user.last_name}}</h5>
+                                            </span>
+                                            <p class="text-muted mb-0">
+                                                {{room.name|truncatechars:30}}
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         {% else %}
@@ -545,7 +546,7 @@
                                             {% endif %}
                                         {% endfor %}
                                         </div>
-                                        <a href="/{{room.name}}/?username={{request.user.last_name}}">
+                                        <a href="/{{room.name}}/?username={{request.user.username}}">
                                             <div>
                                                 <span>
                                                     <h5>{{room.inv.user.last_name}}</h5>
@@ -649,13 +650,13 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                                <a href="/{{room.name}}/?username={{request.user.last_name}}">
+                                <a href="/{{room.name}}/?username={{request.user.username}}">
                                     <div>
                                         <span>
                                             <h5>{{room.etu.user.last_name}}</h5>
                                         </span>
                                         <p class="text-muted mb-0">
-                                            <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
+                                            {{room.name|truncatechars:30}}
                                         </p>
                                     </div>
                                 </a>
@@ -670,7 +671,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                                <a href="/{{room.name}}/?username={{request.user.last_name}}">
+                                <a href="/{{room.name}}/?username={{request.user.username}}">
                                     <div>
                                         <span>
                                         <h5>{{room.inv.user.last_name}}</h5>
