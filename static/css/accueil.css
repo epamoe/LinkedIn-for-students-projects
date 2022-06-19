@@ -766,11 +766,15 @@ main .container .right{
     color: var(--color-primary);
 }
 
+.categories .accordion #accordion-cat{
+    background: var(--color-white) !important;
+}
+
 .right .categories .project-line{
     display: flex;
     /* gap: 1rem; */
     justify-content: space-between;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     align-items: center;
 }
 
@@ -1005,14 +1009,14 @@ main .container .right{
     background: var(--color-white) !important;
 }
 
-input[type="text"],
+/* input[type="text"],
 textarea,
 select{
     background: var(--color-white);
     border-radius: var(--card-border-radius);
     border: none;
     padding: var(--card-padding);
-}
+} */
 
 
 @media (min-width: 576px){

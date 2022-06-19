@@ -12,12 +12,12 @@ urlpatterns = [
     path('list_projects', list_projects, name='list_projects'),
 
     # chat 
-    path('<str:room>/', room, name="romm"),
-    path('send', send, name='send'),
-    path('getMessages/<str:room>/', getMessages, name='getMessages'),
+    path('<str:room>/', room, name="room"),
+    # path('send', send, name='send'),
+    # path('getMessages/<str:room>/', getMessages, name='getMessages'),
     path('createRoom/<str:u1>/<str:u2>/<str:title>', createRoom, name='createRoom'),
 
     # comment post
-    path('comment', commenterPublication, name='comments'),
+    # path('comment', commenterPublication, name='comments'),
 
 ]

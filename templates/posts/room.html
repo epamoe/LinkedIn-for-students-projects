@@ -1,7 +1,7 @@
 {% extends 'base-accueil.html' %}
 {% load static %}
 
-{% block title %} ChatApp | Chat {% endblock %}
+{% block title %} FindInvest | Discussions {% endblock %}
 
 {% block content %}
 
@@ -94,7 +94,36 @@
             <!-- ----------liste des messages------------ -->
             <div class="modal-body">
                 <div class="discussionMod active">
-                    <div id="chat" class="chat pt-4">
+                    <div id="chat" class="chat pt-4" style="opacity: 0.2;">
+                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                            <div>
+                                <div class="avatar">
+                                    <img src="{% static 'images/profile-17.jpg' %}">
+                                </div>
+                            </div>
+                            <div>
+                                <span class="card card-text-left d-inline-block py-3 px-5 ms-1">
+                                    
+                                </span>
+                                <br>
+                                <div class="ms-2">
+                                    <span class="text-muted bg-secondary rounded px-4"></span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="disc-right d-flex align-items-baseline text-end justify-content-end">
+                            <div class="right-messages">
+                                <span class="card card-text-right d-inline-block text-start py-3 px-5 me-1">
+                                    
+                                </span>
+                                <br>
+                                <div class="me-2">
+                                    <span class="text-muted bg-secondary rounded px-4"></span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
                         <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                             <div>
                                 <div class="avatar">
@@ -150,6 +179,7 @@
 
 <!-- actualiser la liste des messages -->
 
+{% comment %} 
 <script>
     $(document).ready(function(){
 
@@ -193,10 +223,10 @@
         },1000);
     })
 </script>
-
+ {% endcomment %}
 
 <!-- envoie d'un message -->
-
+{% comment %} 
 <script type="text/javascript">
     $(document).on('submit','#post-form',function(e){
         e.preventDefault();
@@ -217,7 +247,7 @@
         document.getElementById('message').value = ''
     });
 </script>
-
+ {% endcomment %}
 
 
 <!-- ---------- copie de la page d'accueil --------------- -->

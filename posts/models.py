@@ -1,6 +1,7 @@
 from email.policy import default
 from django.db import models
-from users.models import Etudiant
+from django.contrib.auth.models import User
+from users.models import Etudiant, Investisseur
 import os
 from PIL import Image
 from django.utils import timezone
@@ -41,14 +42,19 @@ class Projet(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=100)
-    user1 = models.CharField(max_length=100)
-    user2 = models.CharField(max_length=1000)
+    # inv = models.CharField(max_length=100)
+    # etu = models.CharField(max_length=1000)
+    inv = models.ForeignKey(Investisseur, on_delete=models.CASCADE, related_name="room")
+    etu = models.ForeignKey(Etudiant, on_delete=models.CASCADE, related_name='room')
     def __str__(self):
         return self.name
 
 
-class Message(models.Model):
-    value = models.CharField(max_length=1000000)
-    date = models.DateTimeField(default=timezone.now, blank=True)
-    user = models.CharField(max_length=100)
-    room = models.CharField(max_length=100)
+# class Message(models.Model):
+#     value = models.CharField(max_length=1000000)
+#     date = models.DateTimeField(default=timezone.now, blank=True)
+#     # user = models.CharField(max_length=100)
+#     # room = models.CharField(max_length=100)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message')
+#     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='message')
+
