@@ -469,7 +469,7 @@
 
                 <div class="accordion accordion-flush" id="cat1">
                     {% for post in postListUnique %}
-                        <div class="accordion-item mb-4" id="accordion-cat">
+                        <div class="accordion-item mb-4" id="accordion-cat" style="border: none;">
                             <div class="project-line" style="cursor: pointer;">
                                 <div class="project-body collapsed" data-bs-toggle="collapse" data-bs-target="#cat{{post.categorie.id}}" aria-expanded="false">
                                     <h5>{{post.categorie}}</h5>
@@ -479,7 +479,7 @@
                                     <i class="uil uil-direction"></i>
                                 </span>
                             </div>
-                            <hr>
+                            
                             {% for p in postList %}
                                 {% if p.categorie == post.categorie %}
                                     <div id="cat{{post.categorie.id}}" class="accordion-collapse collapse my-2" aria-labelledby="flush-head{{post.categorie.id}}" data-bs-parent="#cat2">
