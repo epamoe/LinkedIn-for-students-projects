@@ -148,12 +148,13 @@ def delete_post(request, pk):
 def room(request, room):
     room_details = ''
     username = request.GET.get('username')
-    room_details = Room.objects.get(name=room)
+    # room_details = Room.objects.get(name=room)
+    room_details = "no room"
     roomList = Room.objects.all()
     userList = User.objects.all()
-    # for r in roomList:
-    #     if r.name == room:
-    #         room_details = r
+    for r in roomList:
+        if r.name == room:
+            room_details = r
     context = {
         'username': username,
         'room': room,
@@ -176,14 +177,11 @@ def createRoom(request, u1, u2, title):
     #     if roo.name == title:
     #         room = roo
     if Room.objects.filter(name=title).exists():
-        msg = "room déja existant"
         return redirect("/"+title+"/?username="+inv.user.username)
-        return render(request, 'posts/accueil.html', {'msg':msg})
     else:
         new_room = Room.objects.create(name=title, inv=inv, etu=etu)
         new_room.save()
         return redirect("/"+title+"/?username="+inv.user.username)
-    return render(request, 'posts/accueil.html')
 
 
 # envoyer un message
