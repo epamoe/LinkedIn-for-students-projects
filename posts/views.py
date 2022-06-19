@@ -155,12 +155,23 @@ def room(request, room):
     for r in roomList:
         if r.name == room:
             room_details = r
+    
+    # liste des username
+    usernameInvList = []
+    usernameEtuList = []
+    for inv in Investisseur.objects.all():
+        usernameInvList.append(inv.user.username)
+    for etu in Etudiant.objects.all():
+        usernameEtuList.append(etu.user.username)
+    
     context = {
         'username': username,
         'room': room,
         'room_details': room_details,
         'roomList':roomList,
         'userList':userList,
+        'usernameInvList':usernameInvList,
+        'usernameEtuList':usernameEtuList,
     }
     return render(request, 'posts/room.html', context)
 
@@ -193,29 +204,35 @@ def send(request):
 
     # retouver les objets correspondants
     value = message
-    user = User.objects.get(username=username)
     room = Room.objects.get(id=room_id)
+    user = User.objects.get(username=username)
 
-    new_message = Message.objects.create(value=value, user=user, room=room)
+    new_message = Message.objects.create(value=value, user=user.username, room=room)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 
 # récupérer la liste des message d'un salon
-# def getMessages(request, room):
-#     inv = ""
-#     photo = ""
-#     room_details = Room.objects.get(name=room)
-#     for u in User.objects.all():
-#         if room_details.inv == u.last_name:
-#             # inv = Investisseur.objects.get(id=u.investisseur.id)
-#             for i in Investisseur.objects.all():
-#                 if i.user.id == u.id:
-#                     inv = i
-#                     photo = inv.photoProfil.url
-#     messages = Message.objects.filter(room=room_details.id)
-#     context = {"messages":list(messages.values()), 'photo':photo}
-#     return JsonResponse(context)
+def getMessages(request, room):
+    room_details = Room.objects.get(name=room)
+    photoInv = room_details.inv.photoProfil.url
+    photoEtu = room_details.etu.photoProfil.url
+    # photo = ""
+    # inv = ""
+    # for u in User.objects.all():
+    #     if room_details.inv.user.id == u.id:
+    #         # inv = Investisseur.objects.get(id=u.investisseur.id)
+    #         for i in Investisseur.objects.all():
+    #             if i.user.id == u.id:
+    #                 inv = i
+    #                 photo = inv.photoProfil.url
+    messages = Message.objects.filter(room=room_details.id)
+    context = {
+        "messages":list(messages.values()), 
+        'photoInv':photoInv, 
+        'photoEtu':photoEtu
+    }
+    return JsonResponse(context)
 
 
 
