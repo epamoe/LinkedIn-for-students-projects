@@ -614,7 +614,7 @@
                     </select>
 
                     <center>
-                        <label id="image_post" for="">
+                        <label id="image_post" for="id_image">
                             <span>Insérez une image</span>
                             <i class="uil uil-image-plus"></i>
                             <img id="upload_image" src="" alt="">
@@ -626,7 +626,7 @@
                         <p class="mt-2 mb-0 text-small">Ajoutez un fichier qui décrire de manière plus détaillée votre projet</p>
                         <label id="media_post" for="id_media">
                             <i class="uil uil-file-plus"></i>
-                            <span id="upload_file">nom du fichier</span>
+                            <span id="upload_file"></span>
                         </label>
                     </center>
                     <input type="file" name="media" id="id_media" hidden><p></p>
@@ -782,29 +782,30 @@
 
 	let choosenImage = document.getElementById('upload_image');
 	let uploardButton = document.getElementById('image_post');
+    let postImage = document.getElementById('id_image');
 
 	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
 				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
-    uploardButton.addEventListener("click", ()=>{
-        alert("recu");
-    })
-	uploardButton.onchange = () =>{
-        alert();
-		// let fileName = uploardButton.files[0].name.split(".");
-		// let ext = fileName[fileName.length-1];
-		// // alert(ext);
-		// if(ListExt.indexOf(ext) === -1){
-		// 	alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
-		// }else{
-		// 	let reader = new FileReader();
-		// 	reader.readAsDataURL(uploardButton.files[0]);
-		// 	let file = uploardButton.files[0];
-		// 	reader.onload = () => {
-		// 		choosenImage.setAttribute("src", reader.result);
+	postImage.onchange = () =>{
+		let fileName = postImage.files[0].name.split(".");
+		let ext = fileName[fileName.length-1];
+		if(ListExt.indexOf(ext) === -1){
+			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		}else{
+			let reader = new FileReader();
+			reader.readAsDataURL(postImage.files[0]);
+			let file = postImage.files[0];
+			reader.onload = () => {
+				choosenImage.setAttribute("src", reader.result);
 
-		// 	}
-		// }
+			}
+		}
 	}
+
+    // charger le nom de ficher
+
+    nomFile = document.getElementById('upload_file');
+    postFile = document.getElementById('id_media');
 </script>
 
 <script>
