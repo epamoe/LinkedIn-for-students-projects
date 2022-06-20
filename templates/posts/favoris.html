@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FindIvest | Favoris {% endblock %}
+
+{% block content %}
+<style>
+  .bod{
+    margin-top: 20px;
+  }
+  .nave{
+    height: 438px;
+    width: 200px;
+    max-width: 200px;
+    margin-left: 20px;
+    margin-top: 20px;
+    border-top: 2.5em solid #FF8C2E;
+    border-radius: 15px;
+    position: relative;
+  }
+  .nave img{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+  }
+  #card-tete{
+    border-radius: 13px;
+    display:inline-block;    
+  }
+  .card-texte{
+    text-align: right;
+    position: relative;
+    color: #0B5ED7;
+    bottom: 25px;
+    right: 20px;
+
+  }
+  .card{
+    border-radius: 7px;
+
+  }
+ 
+  
+  #card-tete img{
+    height: 50px;
+    width: 200px;
+    
+  }
+
+  .card-title{
+    display: flex;
+  }
+  .profil{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+  }
+  h5 p{
+    position: absolute;
+    left: 220px;
+  }
+  .img-post{
+    background-color: #D9D9D9;
+    width: 140px;
+    height: 100px;
+    margin: 10px;
+  }
+  .name-img{
+    display:inline-flex;
+  }
+  
+</style>
+<div class="bod d-inline-flex">
+  <div class="nave position-relative shadow-sm p-1">
+    <img src="../../media/image/profile_pics/user.jpeg" alt="">
+    <nav class="nav flex-column">
+      <a class="nav-link active" aria-current="page" href="#">Active</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link disabled">Disabled</a>
+    </nav>
+  </div>
+    <div class="container position-relative">
+      <div class="card shadow-sm p-1 mb-3 bg-body" style="width: 40rem;" id="card-tete">
+        <img src="../../media/image/post_image/logo.png" alt="">
+        <h2 class="card-texte"> - - -  FAVORIS</h2>
+      </div>
+    <div class="card shadow-sm p-0 mb-2 bg-body" style="width: 40rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <img src="../../media/image/profile_pics/user.jpeg" alt="" class="profil">
+          Domaine & Titre projet
+          <p class="card-subtitle mb-2 text-muted"><br /> universite uy1</p>
+        </h5>
+        <div class="name-img">
+          <p> NOM & PRENOM</p>
+          <img src="" alt="" class="img-post">
+          <img src="" alt="" class="img-post">
+          <img src="" alt="" class="img-post">
+        </div>
+        <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+          adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+          iusto sit molestias libero asperiores quam ratione numquam laborum, 
+          ipsam nesciunt cum suscipit ab magnam dolores eius!
+          Lorem ipsum dolor sit, amet consectetur 
+          adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+          iusto sit molestias libero asperiores quam ratione numquam laborum, 
+          ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+        
+      </div>
+    </div>
+    <div class="card shadow-sm p-0 mb-2 bg-body" style="width: 40rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <img src="../../media/image/profile_pics/user.jpeg" alt="" class="profil">
+          Domaine & Titre projet
+          <p class="card-subtitle mb-2 text-muted"><br /> universite uy1</p>
+        </h5>
+        <div class="name-img">
+          <p> NOM & PRENOM</p>
+          <img src="" alt="" class="img-post">
+          <img src="" alt="" class="img-post">
+          <img src="" alt="" class="img-post">
+        </div>
+        <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+          adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+          iusto sit molestias libero asperiores quam ratione numquam laborum, 
+          ipsam nesciunt cum suscipit ab magnam dolores eius!
+          Lorem ipsum dolor sit, amet consectetur 
+          adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+          iusto sit molestias libero asperiores quam ratione numquam laborum, 
+          ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+        
+      </div>
+    </div>
+    <div class="card shadow-sm p-0 mb-2 bg-body" style="width: 40rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <img src="../../media/image/profile_pics/user.jpeg" alt="" class="profil">
+          Domaine & Titre projet
+          <p class="card-subtitle mb-2 text-muted"><br /> universite uy1</p>
+        </h5>
+        <div class="name-img">
+          <p> NOM & PRENOM</p>
+          <img src="" alt="" class="img-post">
+          <img src="" alt="" class="img-post">
+          <img src="" alt="" class="img-post">
+        </div>
+        <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+          adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+          iusto sit molestias libero asperiores quam ratione numquam laborum, 
+          ipsam nesciunt cum suscipit ab magnam dolores eius!
+          Lorem ipsum dolor sit, amet consectetur 
+          adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+          iusto sit molestias libero asperiores quam ratione numquam laborum, 
+          ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+{% endblock %}
