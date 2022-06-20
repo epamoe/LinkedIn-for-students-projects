@@ -506,9 +506,6 @@
                                 <p class="text-muted">
                                     Ci-dessous la liste de vos discussions
                                 </p>
-                                {% comment %} <p class="text-muted">
-                                    <b>Sujets :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam perferendis repudiandae repellat quidem tempore voluptatibus enim distinctio est nesciunt eveniet.
-                                </p> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -571,7 +568,7 @@
 <!-- ================ DISCUSSIONS MODAL ====================== -->
   
   <!-- CREATE POST Modal -->
-<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true"> -->
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -585,33 +582,64 @@
                     height: 100px;
                 }
             </style>
-                {% comment %} <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
+            {% comment %} <form id="create_form" action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{create_post_form}}
 
-                    {{create_post_form}}
+                <input type="text" name="form_type" value="create_form">
+                <input class="btn btn-primary" type="submit" value="Publier">
+    
+                {{err_create_post}}
+            </form>       {% endcomment %}
 
-                    <input type="text" name="form_type" value="create_form">
-                    <input class="btn btn-primary" type="submit" value="Publier">
-        
-                    {{err_create_post}}
-                </form> {% endcomment %}
+            <form id="create_form" action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="Sx3lUMs8LW5HZFZ7kqhl2PlAFiEYcmqy11dxbx7vWPlFwmb1aKtMFNQx0Suq1Pg6">
+                    
+                    <input type="text" name="title" maxlength="200" required="" id="id_title" placeholder="Titre du Projet"><p></p>
+                    <input type="text" name="categorie" maxlength="200" required="" id="id_categorie" placeholder="Categorie projet"><p></p>
 
-                <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{create_post_form}}
+                    <select name="investi" id="id_investi" hidden>
+                        <option value="">---------</option>
 
-                    <input type="text" name="form_type" value="create_form">
-                    <input class="btn btn-primary" type="submit" value="Publier">
-        
-                    {{err_create_post}}
+                        <option value="Oui">Oui</option>
+
+                        <option value="Non" selected="">Non</option>
+
+                    </select>
+
+                    <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description" placeholder="Description"></textarea><p></p>
+
+                    <select name="etudiant" required="" id="id_etudiant" hidden>
+                        <option value="{{request.user.etudiant.id}}">{{request.user.etudiant}}</option>
+                    </select>
+
+                    <center>
+                        <label id="image_post" for="">
+                            <span>Insérez une image</span>
+                            <i class="uil uil-image-plus"></i>
+                            <img id="upload_image" src="" alt="">
+                        </label>
+                    </center>
+                    <input type="file" name="image" accept="image/*" id="id_image" hidden><p></p>
+                    <hr>
+                    <center>
+                        <p class="mt-2 mb-0 text-small">Ajoutez un fichier qui décrire de manière plus détaillée votre projet</p>
+                        <label id="media_post" for="id_media">
+                            <i class="uil uil-file-plus"></i>
+                            <span id="upload_file">nom du fichier</span>
+                        </label>
+                    </center>
+                    <input type="file" name="media" id="id_media" hidden><p></p>
+
+
+                    <input type="text" name="form_type" value="create_form" hidden><p></p>
+                    <center><input class="mt-4 btn btn-primary" type="submit" value="Publier"></center>
+                    
                 </form>
-
-
-                
         </div>
       </div>
     </div>
-</div>
+<!-- </div> -->
 
 
   <!-- MODIFY POST Modal -->
@@ -748,6 +776,36 @@
     </div>
 </div>
 
+
+<script>
+    // charger l'image
+
+	let choosenImage = document.getElementById('upload_image');
+	let uploardButton = document.getElementById('image_post');
+
+	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
+				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
+    uploardButton.addEventListener("click", ()=>{
+        alert("recu");
+    })
+	uploardButton.onchange = () =>{
+        alert();
+		// let fileName = uploardButton.files[0].name.split(".");
+		// let ext = fileName[fileName.length-1];
+		// // alert(ext);
+		// if(ListExt.indexOf(ext) === -1){
+		// 	alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		// }else{
+		// 	let reader = new FileReader();
+		// 	reader.readAsDataURL(uploardButton.files[0]);
+		// 	let file = uploardButton.files[0];
+		// 	reader.onload = () => {
+		// 		choosenImage.setAttribute("src", reader.result);
+
+		// 	}
+		// }
+	}
+</script>
 
 <script>
 
