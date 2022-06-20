@@ -1062,7 +1062,6 @@ main .container .right{
 #create_form #media_post{
     width: 300px;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     border: var(--color-primary) dashed 1px;
@@ -1075,6 +1074,11 @@ main .container .right{
 #media_post i{
     font-size: 30px;
     color: var(--color-primary);
+}
+
+#create_form #image_post:hover,
+#create_form #media_post:hover{
+    background: rgba(0, 0, 0, 0.274) !important;
 }
 
 
