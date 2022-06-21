@@ -839,7 +839,6 @@
 
 <!-- poster sans recharger la page -->
 <script>
-
     $(document).on('submit','#create_form',function(e){
         // e.preventDefault();
   
@@ -889,20 +888,22 @@
 <script>
     comForms = document.querySelectorAll('.btn_sub');
     corps = document.querySelectorAll('#corps');
+    projets = document.querySelectorAll('#projet');
+    auteurs = document.querySelectorAll('#auteur');
 
     // envoyer le commentaire
 
     for (let i = 0; i < comForms.length; i++) {
         comForms[i].addEventListener("click", function(e){
             e.preventDefault();
-            // alert(corps[i].value);
+            // alert(projets[i].value);
             $.ajax({
                 type:'POST',
                 url:'CommentPost',
                 data:{
-                    projet:$('#projet').val(),
-                    auteur:$('#auteur').val(),
-                    corps:$('#corps').val(),
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    corps:corps[i].value,
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                 },
                 success: function(data){
