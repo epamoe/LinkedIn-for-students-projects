@@ -20,4 +20,5 @@ urlpatterns = [
     # comment post
     path('comment', commenterPublication, name='comments'),
 
+    path('favoris', favoris, name="favoris"),
 ]

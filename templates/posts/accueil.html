@@ -61,11 +61,11 @@
             <a class="profile">
                 {% if request.user.etudiant.id %}
                     <div class="profile-photo"  style="cursor: pointer;">
-                        <img src="{{request.user.etudiant.photoProfil.url}}">
+                        <img src="{% static 'images/default.jpeg' %}">
                     </div>
                 {% else %}
                     <div class="profile-photo" style="cursor: pointer;">
-                        <img src="{{request.user.investisseur.photoProfil.url}}">
+                        <img src="{% static 'images/default.jpeg' %}">
                     </div>
                 {% endif %}
                 <div class="handle">

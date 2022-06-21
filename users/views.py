@@ -486,3 +486,4 @@ def investor_signup(request, pk):
     return render(request, 'users/register_investor.html', context)
 
 
+    

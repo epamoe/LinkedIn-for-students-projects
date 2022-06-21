@@ -240,3 +240,6 @@ def commenterPublication(request):
     }
             
     return render(request, 'posts/comment.html', context)
+
+def favoris(request):
+    return render(request, 'posts/favoris.html')
