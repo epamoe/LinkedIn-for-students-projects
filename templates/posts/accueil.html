@@ -24,7 +24,7 @@
             <i class="uil uil-search"></i>
             <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
-        {{msg}}
+        {{err_create_post}}
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
                 <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Poster</label>
@@ -89,7 +89,7 @@
                     <div class="notifications-popup">
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/tm.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Flavie Daniella</b> commened on your post
@@ -98,7 +98,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-3.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Mengue Victor</b> liked your post
@@ -107,7 +107,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-4.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Nguete Dave</b> commened on your post
@@ -116,7 +116,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-5.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Bikim Yvelos</b> liked your post
@@ -125,7 +125,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-6.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Tom Michel</b> commened on a post you are tagged
@@ -278,9 +278,9 @@
                         </div>
 
                         <div class="liked-by">
-                            <span><img src="{% static 'images/profile-15.jpg' %}"></span>
-                            <span><img src="{% static 'images/profile-16.jpg' %}"></span>
-                            <span><img src="{% static 'images/profile-18.jpg' %}"></span>
+                            <span><img src="{% static 'img/default.jpeg' %}"></span>
+                            <span><img src="{% static 'img/default.jpeg' %}"></span>
+                            <span><img src="{% static 'img/default.jpeg' %}"></span>
                             <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                         </div>
 
@@ -299,7 +299,7 @@
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                         <div>
                                             <div class="avatar">
-                                                <img src="{% static 'images/profile-17.jpg' %}">
+                                                <img src="{% static 'img/default.jpeg' %}">
                                             </div>
                                         </div>
                                         <div class="left-messages">
@@ -348,7 +348,7 @@
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                         <div>
                                             <div class="avatar">
-                                                <img src="{% static 'images/profile-16.jpg' %}">
+                                                <img src="{% static 'img/default.jpeg' %}">
                                             </div>
                                         </div>
                                         <div class="left-messages">
@@ -380,7 +380,7 @@
                                             <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                                 <div>
                                                     <div class="avatar">
-                                                        <img src="{% static 'images/profile-17.jpg' %}">
+                                                        <img src="{% static 'img/default.jpeg' %}">
                                                     </div>
                                                 </div>
                                                 <div class="left-messages">
@@ -590,13 +590,15 @@
                 <input class="btn btn-primary" type="submit" value="Publier">
     
                 {{err_create_post}}
-            </form>       {% endcomment %}
+            </form> {% endcomment %}
 
-            <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="Sx3lUMs8LW5HZFZ7kqhl2PlAFiEYcmqy11dxbx7vWPlFwmb1aKtMFNQx0Suq1Pg6">
+            <form id="create_form" method="post" enctype="multipart/form-data">
+                {% csrf_token %} 
+                    {% comment %} <input type="hidden" name="csrfmiddlewaretoken" value="Sx3lUMs8LW5HZFZ7kqhl2PlAFiEYcmqy11dxbx7vWPlFwmb1aKtMFNQx0Suq1Pg6"> {% endcomment %}
                     
                     <input type="text" name="title" maxlength="200" required="" id="id_title" placeholder="Titre du Projet"><p></p>
-                    <input type="text" name="categorie" maxlength="200" required="" id="id_categorie" placeholder="Categorie projet"><p></p>
+                    {% comment %} <input type="text" name="categorie" maxlength="200" required="" id="id_categorie" placeholder="Categorie projet"> {% endcomment %}
+                    {{create_post_form.categorie}}<p></p>
 
                     <select name="investi" id="id_investi" hidden>
                         <option value="">---------</option>
@@ -632,10 +634,10 @@
                     <input type="file" name="media" id="id_media" hidden><p></p>
 
 
-                    <input type="text" name="form_type" value="create_form" hidden><p></p>
+                    <input type="text" id="form_type" name="form_type" value="create_form" hidden><p></p>
                     <center><input class="mt-4 btn btn-primary" type="submit" value="Publier"></center>
-                    
-                </form>
+                    {{err_create_post}}
+            </form>
         </div>
       </div>
     </div>
@@ -777,6 +779,21 @@
 </div>
 
 
+<!-- ============================ SCRIPT ================================ -->
+
+<!-- supprimer un projet -->
+<script>
+    function delete_post() {
+        res = confirm("Voulez-vous supprimmer cette publications ? ");
+        if(res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+
+<!-- charger les ficheirs du formulaire de création d'un post -->
 <script>
     // charger l'image
 
@@ -813,37 +830,56 @@
 	}
 </script>
 
+<!-- poster sans recharger la page -->
 <script>
 
+    $(document).on('submit','#create_form',function(e){
+        // e.preventDefault();
+  
+        // $.ajax({
+
+        //     type: "POST",
+        //     url: "{% url 'accueil' %}",
+        //     data: $('#create_form').serialize(),
+        //     dataType: "json",
+
+        //     success:function(data){
+        //         create_form.reset()
+        //     },
+        //     error: function(data){
+        //         // alert('An error occured')
+        //     }
+        // });
+        alert(data);
+        document.getElementById('fermerMod').click();
+    });
+</script>
+
+<!-- <script type="text/javascript">
     $(document).on('submit','#create_form',function(e){
         e.preventDefault();
   
         $.ajax({
-
-            type: "POST",
-            url: "{% url 'accueil' %}",
-            data: $('#create_form').serialize(),
-            dataType: "json",
-
-            success:function(data){
-                create_form.reset()
+            type:'POST',
+            url:"{% url 'accueil' %}",
+            data:{
+                id_title:$('#id_title').val(),
+                id_categorie:$('#id_categorie').val(),
+                id_investi:$('#id_investi').val(),
+                id_description:$('#id_description').val(),
+                id_etudiant:$('#id_etudiant').val(),
+                id_image:$('#id_image').val(),
+                id_media:$('#id_media').val(),
+                form_type:$('#form_type').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
             },
-            error: function(data){
-                // alert('An error occured')
+            success: function(data){
+                // alert(data)
             }
         });
-        create_form.reset();
         document.getElementById('fermerMod').click();
     });
+</script> -->
 
-    function delete_post() {
-        res = confirm("Voulez-vous supprimmer cette publications ? ");
-        if(res){
-            return true;
-        }else{
-            return false;
-        }
-    }
-</script>
 
 {% endblock %}

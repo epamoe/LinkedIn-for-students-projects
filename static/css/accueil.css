@@ -525,6 +525,7 @@ main .container .left .profile .handle p{
     overflow: hidden;
     margin: 0.7rem 0;
     max-height: 320px !important;
+    border: var(--color-primary) dashed 1px;
 }
 
 .middle .posts .post .action-buttons{
@@ -1044,6 +1045,8 @@ main .container .right{
     height: 100%;
     color: #fff;
     z-index: 12;
+    border: none;
+    border-radius: var(--border-radius);
 }
 
 #create_form #image_post span{
@@ -1078,7 +1081,8 @@ main .container .right{
 
 #create_form #image_post:hover,
 #create_form #media_post:hover{
-    background: rgba(0, 0, 0, 0.274) !important;
+    /* background: rgba(0, 0, 0, 0.274) !important; */
+    opacity: 0.8;
 }
 
 

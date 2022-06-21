@@ -21,9 +21,16 @@ class Projet(models.Model):
         ('Oui', 'Oui'),
         ('Non', 'Non'),
     ]
+    CATHEGORIES = [
+        ('INFORMATIQUE','INFORMATIQUE'),
+        ('AGRICULTURE','AGRICULTURE'),
+        ('ELEVAGE','ELEVAGE'),
+        ('SANTE','SANTE'),
+        ('AUTRES','AUTRES')
+    ]
 
     title = models.CharField('Titre du Projet', max_length=200)
-    categorie = models.CharField('categorie projet', max_length=200)
+    categorie = models.CharField('categorie projet', max_length=200, choices=CATHEGORIES, default='categorie')
     media = models.FileField(upload_to='documents/post_doc/', blank=True)
     image = models.ImageField(upload_to='image/post_image/', default='post.jpg', blank=True)
     investi = models.CharField(choices=INVESTI, default='Non', max_length=10, blank=True)
