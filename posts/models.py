@@ -8,14 +8,6 @@ from django.utils import timezone
 
 # creation de la classe Projet
 
-class Comment(models.Model):
-    
-    title = models.CharField(max_length=600, blank=False)
-    
-    def __str__(self):
-        return self.title
-    
-
 class Projet(models.Model):
     INVESTI = [
         ('Oui', 'Oui'),
@@ -38,14 +30,15 @@ class Projet(models.Model):
     description = models.TextField(max_length=500)
     # un projet ne concerne qu'un etudiant
     etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE, related_name='projet')
-    date_post = models.DateTimeField('date_post',default=timezone.now, blank=True)
-
+    date_post = models.DateTimeField('date_post',auto_now_add=True, blank=True)
 
     def __str__(self):
         return  f'{self.etudiant.user.last_name} Post- {self.title}'
+    class Meta:
+        ordering = ['-date_post']
 
 
-# model pour le Chat
+# models pour le Chat
 
 class Room(models.Model):
     name = models.CharField(max_length=100)
@@ -59,9 +52,42 @@ class Room(models.Model):
 
 class Message(models.Model):
     value = models.CharField(max_length=1000000)
-    date = models.DateTimeField(default=timezone.now, blank=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
     # room = models.CharField(max_length=100)
     user = models.CharField(max_length=100)
     # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message')
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='message')
+
+    def __str__(self):
+        return f'Msg de {self.user} le {self.date}'
+
+
+
+
+# models pour le système de commentaires
+
+class Commentaire(models.Model):
+    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
+    auteur = models.ForeignKey(User, models.CASCADE)
+    corps = models.TextField(max_length=500)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Commentaire de {self.auteur} le {self.date_added}'
+    class Meta:
+        ordering = ['-date_added']
+
+
+class Reponse(models.Model):
+    commentaire = models.ForeignKey(Commentaire, on_delete=models.CASCADE, related_name='reponses')
+    auteur = models.ForeignKey(User, models.CASCADE)
+    corps = models.TextField(max_length=500)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Reponse de {self.auteur} au commentaire de {self.commentaire.auteur}'
+    class Meta:
+        ordering = ['-date_added']
+
+
 

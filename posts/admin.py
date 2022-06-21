@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Projet, Comment, Room, Message
+from .models import Projet, Room, Message, Commentaire, Reponse
 
 
 # Register your models here.
@@ -10,9 +10,10 @@ class AdminProjet(admin.ModelAdmin):
 	ordering       = ('date_post', )
 	search_fields  = ('title', 'etudiant')
 
-admin.site.register(Comment)
 
 admin.site.register(Projet, AdminProjet)
 
 admin.site.register(Room)
 admin.site.register(Message)
+admin.site.register(Commentaire)
+admin.site.register(Reponse)

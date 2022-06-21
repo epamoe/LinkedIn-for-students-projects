@@ -207,9 +207,9 @@ nav .create{
     width: 100%;
 }
 
-.result .to-search-project{
+/* .result .to-search-project{
     display: none;
-}
+} */
 
 .searchNav .result a{
     display: flex;
@@ -1010,6 +1010,9 @@ main .container .right{
     background: var(--color-white) !important;
 }
 
+
+
+
 /* ============== champs formulaire de reation d'un post ========== */
 
 
@@ -1084,6 +1087,22 @@ main .container .right{
     /* background: rgba(0, 0, 0, 0.274) !important; */
     opacity: 0.8;
 }
+
+input, textarea, select{
+    color: var(--color-dark) !important;
+}
+select{
+    padding-right: 1rem !important;
+}
+
+
+
+
+
+
+
+
+
 
 
 @media (min-width: 576px){

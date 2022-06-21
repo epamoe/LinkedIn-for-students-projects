@@ -24,7 +24,7 @@
             <i class="uil uil-search"></i>
             <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
-        {{err_create_post}}
+        
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
                 <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Poster</label>
@@ -176,7 +176,7 @@
                                     <img src="{{post.etudiant.photoProfil.url}}">
                                 </div>
                                 <span>
-                                    <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                    <h3>{{post.etudiant.user.last_name}} - <span>{{post.categorie}}</span></h3>
                                     <h5>{{post.title}}</h5>
                                 </span>
                             </a>
@@ -208,7 +208,7 @@
             <div class="posts">
                 {% for post in postList %}
                     <!-- ------------ post 1 --------------- -->
-                    <div class="post" id="#projet{{post.id}}">
+                    <div class="post" id="projet{{post.id}}">
                         <div class="head">
                             <div class="user">
                                 <a href="{% url 'profile_student' post.etudiant.id %}">
@@ -223,6 +223,7 @@
                                     </a>
                                 </div>
                             </div>
+                            
                             {% if request.user.id == post.etudiant.user.id %}
                                 <div class="dropstart">
                                     <span class="edit" id="dropdownPostActions" data-bs-toggle="dropdown" aria-expanded="false">
@@ -483,7 +484,8 @@
                             {% for p in postList %}
                                 {% if p.categorie == post.categorie %}
                                     <div id="cat{{post.categorie.id}}" class="accordion-collapse collapse my-2" aria-labelledby="flush-head{{post.categorie.id}}" data-bs-parent="#cat2">
-                                        <p>{{p.title}}</p>
+                                        <!-- <p></p> -->
+                                        <a href="#projet{{p.id}}">{{p.title}}</a>
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -598,7 +600,10 @@
                     
                     <input type="text" name="title" maxlength="200" required="" id="id_title" placeholder="Titre du Projet"><p></p>
                     {% comment %} <input type="text" name="categorie" maxlength="200" required="" id="id_categorie" placeholder="Categorie projet"> {% endcomment %}
-                    {{create_post_form.categorie}}<p></p>
+                    <p style="display: flex; align-items: center; gap: 1rem;">
+                        <label for="id_categorie">Catégorie</label>
+                        {{create_post_form.categorie}}
+                    </p><p></p>
 
                     <select name="investi" id="id_investi" hidden>
                         <option value="">---------</option>
@@ -779,7 +784,7 @@
 </div>
 
 
-<!-- ============================ SCRIPT ================================ -->
+<!-- ============================ SCRIPTs ================================ -->
 
 <!-- supprimer un projet -->
 <script>
@@ -854,6 +859,27 @@
         document.getElementById('fermerMod').click();
     });
 </script>
+
+
+<!-- actualiser la page chaque 5 secondes -->
+
+<!-- <script>
+    $(document).ready(function(){
+
+        setInterval(function(){
+            $.ajax({
+                // type: 'POST',
+                url : "{% url 'accueil' %}",
+                success: function(response){
+                    
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },5000);
+    })
+</script> -->
 
 <!-- <script type="text/javascript">
     $(document).on('submit','#create_form',function(e){

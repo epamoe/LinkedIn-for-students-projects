@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.models import *
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from .forms import ProjetForm
-from .models import Projet, Room, Message
+from .forms import ProjetForm, ComForm, RepForm
+from .models import Projet, Room, Message, Commentaire, Reponse
 
 # Create your views here.
 
@@ -24,7 +24,7 @@ def accueil(request):
     # crer un projet
     err_create_post =""
     create_post_form = ProjetForm()
-    postList = Projet.objects.all()
+    postList = Projet.objects.all().order_by('-date_post')
     postListUnique = []
     pListCat = []
     for p in postList:
@@ -239,6 +239,24 @@ def getMessages(request, room):
 
 
 # ========================== COMMENTS =====================
+
+
+
+# commenter un projet
+
+def CommentPost(request):
+    proj = request.POST['projet']
+    aut = request.POST['auteur']
+    corps = request.POST['corps']
+
+    projet = Projet.objects.get(id=proj)
+    auteur = User.objects.get(id=aut)
+
+    new_comment = Commentaire.objects.create(projet=projet, auteur=auteur, corps=corps)
+    new_comment.save()
+    return HttpResponse('Comment sent successfully')
+
+
 
 
 # commenter un projet
