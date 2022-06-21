@@ -7,13 +7,14 @@ from .models import Projet, Room, Message, Commentaire, Reponse
 class AdminProjet(admin.ModelAdmin):
 	list_display   = ('title', 'etudiant', 'date_post', 'categorie')
 	list_filter    = ('title','categorie',)
-	ordering       = ('date_post', )
 	search_fields  = ('title', 'etudiant')
-
-
 admin.site.register(Projet, AdminProjet)
 
 admin.site.register(Room)
 admin.site.register(Message)
-admin.site.register(Commentaire)
+
+class AdminCom(admin.ModelAdmin):
+	list_display   = ('auteur', 'projet', 'date_added')
+
+admin.site.register(Commentaire, AdminCom)
 admin.site.register(Reponse)

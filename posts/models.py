@@ -33,7 +33,7 @@ class Projet(models.Model):
     date_post = models.DateTimeField('date_post',auto_now_add=True, blank=True)
 
     def __str__(self):
-        return  f'{self.etudiant.user.last_name} Post- {self.title}'
+        return  f'{self.etudiant.user.last_name} -a posté- {self.title}'
     class Meta:
         ordering = ['-date_post']
 

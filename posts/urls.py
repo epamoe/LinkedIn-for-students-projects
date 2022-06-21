@@ -18,6 +18,6 @@ urlpatterns = [
     path('createRoom/<str:u1>/<str:u2>/<str:title>', createRoom, name='createRoom'),
 
     # comment post
-    # path('comment', commenterPublication, name='comments'),
+    path('CommentPost', CommentPost, name='CommentPost'),
 
 ]

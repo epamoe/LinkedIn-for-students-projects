@@ -24,7 +24,7 @@ def accueil(request):
     # crer un projet
     err_create_post =""
     create_post_form = ProjetForm()
-    postList = Projet.objects.all().order_by('-date_post')
+    postList = Projet.objects.all()
     postListUnique = []
     pListCat = []
     for p in postList:

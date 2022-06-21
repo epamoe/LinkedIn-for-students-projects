@@ -331,7 +331,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- votre commentaire 1 -->
+                                    {% comment %} <!-- votre commentaire 1 -->
                                     <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
                                         <div class="right-messages">
                                             <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
@@ -425,16 +425,18 @@
                                             </div>
                                             <br>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
                             <div class="send-comment">
-                                <form action="" method="post">
+                                <form class="comment_form">
                                     {% csrf_token %}
-                                    <input type="text" name="" id="" placeholder="Votre commentaire">
+                                    <input type="text" name="projet" id="projet" value="{{post.id}}" hidden>
+                                    <input type="text" name="auteur" id="auteur" value="{{request.user.id}}" hidden>
+                                    <input type="text" name="corps" id="corps" placeholder="Votre commentaire">
                                     <div class="send">
                                         <input type="submit" id="send-message" value="Envoer" hidden>
-                                        <label for="send-message"><i class="uil uil-message"></i></label>
+                                        <label class="btn_sub" for="send-message"><i class="uil uil-message"></i></label>
                                     </div>
             
                                 </form>
@@ -861,7 +863,7 @@
 </script>
 
 
-<!-- actualiser la page chaque 5 secondes -->
+<!-- actualiser la page chaque 1 secondes -->
 
 <!-- <script>
     $(document).ready(function(){
@@ -877,9 +879,101 @@
                     alert('An error occured')
                 }
             });
-        },5000);
+        },1000);
     })
 </script> -->
+
+
+<!-- commenter un projet -->
+
+<script>
+    comForms = document.querySelectorAll('.btn_sub');
+    corps = document.querySelectorAll('#corps');
+
+    // envoyer le commentaire
+
+    for (let i = 0; i < comForms.length; i++) {
+        comForms[i].addEventListener("click", function(e){
+            e.preventDefault();
+            // alert(corps[i].value);
+            $.ajax({
+                type:'POST',
+                url:'CommentPost',
+                data:{
+                    projet:$('#projet').val(),
+                    auteur:$('#auteur').val(),
+                    corps:$('#corps').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                    corps[i].value = '';
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
+
+    // raffraichir la liste des commentaires
+
+    listComments = document.querySelectorAll('.chat');
+// $(document).ready(function(){
+//     for (let i = 0; i < listComments.length; i++) {
+//         listComments[i].addEventListener("click", function(e){
+//             // alert(i);
+//             setInterval(function(){
+//                 $.ajax({
+//                     type: 'GET',
+//                     url : "{% url 'accueil' %}",
+//                     success: function(response){
+//                         // console.log(response);
+//                         listComments[i].empty();
+//                         alert(i);
+//                     },
+//                     error: function(response){
+//                         alert('An error occured')
+//                     }
+//                 });
+//             },1000);
+//         })   
+//     }
+// });
+
+    $(document).ready(function(){
+
+        // setInterval(function(){
+            $.ajax({
+                // type: 'POST',
+                url : "{% url 'accueil' %}",
+                success: function(response){
+                    for (let i = 0; i < listComments.length; i++) {
+                        // alert(i);
+                        // corps[i].value = corps[i].value + i ;
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        // },1000);
+    })
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <script type="text/javascript">
     $(document).on('submit','#create_form',function(e){
