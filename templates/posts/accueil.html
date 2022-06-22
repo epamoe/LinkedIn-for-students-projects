@@ -24,7 +24,7 @@
             <i class="uil uil-search"></i>
             <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
-        {{msg}}
+        
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
                 <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Poster</label>
@@ -89,7 +89,7 @@
                     <div class="notifications-popup">
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/tm.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Flavie Daniella</b> commened on your post
@@ -98,7 +98,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-3.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Mengue Victor</b> liked your post
@@ -107,7 +107,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-4.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Nguete Dave</b> commened on your post
@@ -116,7 +116,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-5.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Bikim Yvelos</b> liked your post
@@ -125,7 +125,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="{% static 'images/profile-6.jpg' %}">
+                                <img src="{% static 'img/default.jpeg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Tom Michel</b> commened on a post you are tagged
@@ -176,7 +176,7 @@
                                     <img src="{{post.etudiant.photoProfil.url}}">
                                 </div>
                                 <span>
-                                    <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                    <h3>{{post.etudiant.user.last_name}} - <span>{{post.categorie}}</span></h3>
                                     <h5>{{post.title}}</h5>
                                 </span>
                             </a>
@@ -208,7 +208,7 @@
             <div class="posts">
                 {% for post in postList %}
                     <!-- ------------ post 1 --------------- -->
-                    <div class="post" id="#projet{{post.id}}">
+                    <div class="post" id="projet{{post.id}}">
                         <div class="head">
                             <div class="user">
                                 <a href="{% url 'profile_student' post.etudiant.id %}">
@@ -223,6 +223,7 @@
                                     </a>
                                 </div>
                             </div>
+                            
                             {% if request.user.id == post.etudiant.user.id %}
                                 <div class="dropstart">
                                     <span class="edit" id="dropdownPostActions" data-bs-toggle="dropdown" aria-expanded="false">
@@ -278,9 +279,9 @@
                         </div>
 
                         <div class="liked-by">
-                            <span><img src="{% static 'images/profile-15.jpg' %}"></span>
-                            <span><img src="{% static 'images/profile-16.jpg' %}"></span>
-                            <span><img src="{% static 'images/profile-18.jpg' %}"></span>
+                            <span><img src="{% static 'img/default.jpeg' %}"></span>
+                            <span><img src="{% static 'img/default.jpeg' %}"></span>
+                            <span><img src="{% static 'img/default.jpeg' %}"></span>
                             <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                         </div>
 
@@ -299,7 +300,7 @@
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                         <div>
                                             <div class="avatar">
-                                                <img src="{% static 'images/profile-17.jpg' %}">
+                                                <img src="{% static 'img/default.jpeg' %}">
                                             </div>
                                         </div>
                                         <div class="left-messages">
@@ -330,7 +331,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- votre commentaire 1 -->
+                                    {% comment %} <!-- votre commentaire 1 -->
                                     <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
                                         <div class="right-messages">
                                             <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
@@ -348,7 +349,7 @@
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                         <div>
                                             <div class="avatar">
-                                                <img src="{% static 'images/profile-16.jpg' %}">
+                                                <img src="{% static 'img/default.jpeg' %}">
                                             </div>
                                         </div>
                                         <div class="left-messages">
@@ -380,7 +381,7 @@
                                             <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                                 <div>
                                                     <div class="avatar">
-                                                        <img src="{% static 'images/profile-17.jpg' %}">
+                                                        <img src="{% static 'img/default.jpeg' %}">
                                                     </div>
                                                 </div>
                                                 <div class="left-messages">
@@ -424,16 +425,18 @@
                                             </div>
                                             <br>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
                             <div class="send-comment">
-                                <form action="" method="post">
+                                <form class="comment_form">
                                     {% csrf_token %}
-                                    <input type="text" name="" id="" placeholder="Votre commentaire">
+                                    <input type="text" name="projet" id="projet" value="{{post.id}}" hidden>
+                                    <input type="text" name="auteur" id="auteur" value="{{request.user.id}}" hidden>
+                                    <input type="text" name="corps" id="corps" placeholder="Votre commentaire">
                                     <div class="send">
                                         <input type="submit" id="send-message" value="Envoer" hidden>
-                                        <label for="send-message"><i class="uil uil-message"></i></label>
+                                        <label class="btn_sub" for="send-message"><i class="uil uil-message"></i></label>
                                     </div>
             
                                 </form>
@@ -483,7 +486,8 @@
                             {% for p in postList %}
                                 {% if p.categorie == post.categorie %}
                                     <div id="cat{{post.categorie.id}}" class="accordion-collapse collapse my-2" aria-labelledby="flush-head{{post.categorie.id}}" data-bs-parent="#cat2">
-                                        <p>{{p.title}}</p>
+                                        <!-- <p></p> -->
+                                        <a href="#projet{{p.id}}">{{p.title}}</a>
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -506,9 +510,6 @@
                                 <p class="text-muted">
                                     Ci-dessous la liste de vos discussions
                                 </p>
-                                {% comment %} <p class="text-muted">
-                                    <b>Sujets :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam perferendis repudiandae repellat quidem tempore voluptatibus enim distinctio est nesciunt eveniet.
-                                </p> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -585,29 +586,65 @@
                     height: 100px;
                 }
             </style>
-                {% comment %} <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
+            {% comment %} <form id="create_form" action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{create_post_form}}
 
-                    {{create_post_form}}
+                <input type="text" name="form_type" value="create_form">
+                <input class="btn btn-primary" type="submit" value="Publier">
+    
+                {{err_create_post}}
+            </form> {% endcomment %}
 
-                    <input type="text" name="form_type" value="create_form">
-                    <input class="btn btn-primary" type="submit" value="Publier">
-        
+            <form id="create_form" method="post" enctype="multipart/form-data">
+                {% csrf_token %} 
+                    {% comment %} <input type="hidden" name="csrfmiddlewaretoken" value="Sx3lUMs8LW5HZFZ7kqhl2PlAFiEYcmqy11dxbx7vWPlFwmb1aKtMFNQx0Suq1Pg6"> {% endcomment %}
+                    
+                    <input type="text" name="title" maxlength="200" required="" id="id_title" placeholder="Titre du Projet"><p></p>
+                    {% comment %} <input type="text" name="categorie" maxlength="200" required="" id="id_categorie" placeholder="Categorie projet"> {% endcomment %}
+                    <p style="display: flex; align-items: center; gap: 1rem;">
+                        <label for="id_categorie">Catégorie</label>
+                        {{create_post_form.categorie}}
+                    </p><p></p>
+
+                    <select name="investi" id="id_investi" hidden>
+                        <option value="">---------</option>
+
+                        <option value="Oui">Oui</option>
+
+                        <option value="Non" selected="">Non</option>
+
+                    </select>
+
+                    <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description" placeholder="Description"></textarea><p></p>
+
+                    <select name="etudiant" required="" id="id_etudiant" hidden>
+                        <option value="{{request.user.etudiant.id}}">{{request.user.etudiant}}</option>
+                    </select>
+
+                    <center>
+                        <label id="image_post" for="id_image">
+                            <span>Insérez une image</span>
+                            <i class="uil uil-image-plus"></i>
+                            <img id="upload_image" src="" alt="">
+                        </label>
+                    </center>
+                    <input type="file" name="image" accept="image/*" id="id_image" hidden><p></p>
+                    <hr>
+                    <center>
+                        <p class="mt-2 mb-0 text-small">Ajoutez un fichier qui décrire de manière plus détaillée votre projet</p>
+                        <label id="media_post" for="id_media">
+                            <i class="uil uil-file-plus"></i>
+                            <span class="text-muted text-small" id="upload_file"></span>
+                        </label>
+                    </center>
+                    <input type="file" name="media" id="id_media" hidden><p></p>
+
+
+                    <input type="text" id="form_type" name="form_type" value="create_form" hidden><p></p>
+                    <center><input class="mt-4 btn btn-primary" type="submit" value="Publier"></center>
                     {{err_create_post}}
-                </form> {% endcomment %}
-
-                <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{create_post_form}}
-
-                    <input type="text" name="form_type" value="create_form">
-                    <input class="btn btn-primary" type="submit" value="Publier">
-        
-                    {{err_create_post}}
-                </form>
-
-
-                
+            </form>
         </div>
       </div>
     </div>
@@ -749,29 +786,10 @@
 </div>
 
 
+<!-- ============================ SCRIPTs ================================ -->
+
+<!-- supprimer un projet -->
 <script>
-
-    $(document).on('submit','#create_form',function(e){
-        e.preventDefault();
-  
-        $.ajax({
-
-            type: "POST",
-            url: "{% url 'accueil' %}",
-            data: $('#create_form').serialize(),
-            dataType: "json",
-
-            success:function(data){
-                create_form.reset()
-            },
-            error: function(data){
-                // alert('An error occured')
-            }
-        });
-        create_form.reset();
-        document.getElementById('fermerMod').click();
-    });
-
     function delete_post() {
         res = confirm("Voulez-vous supprimmer cette publications ? ");
         if(res){
@@ -781,5 +799,208 @@
         }
     }
 </script>
+
+<!-- charger les ficheirs du formulaire de création d'un post -->
+<script>
+    // charger l'image
+
+	let choosenImage = document.getElementById('upload_image');
+	let uploardButton = document.getElementById('image_post');
+    let postImage = document.getElementById('id_image');
+
+	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
+				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
+	postImage.onchange = () =>{
+		let fileName = postImage.files[0].name.split(".");
+		let ext = fileName[fileName.length-1];
+		if(ListExt.indexOf(ext) === -1){
+			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		}else{
+			let reader = new FileReader();
+			reader.readAsDataURL(postImage.files[0]);
+			let file = postImage.files[0];
+			reader.onload = () => {
+				choosenImage.setAttribute("src", reader.result);
+
+			}
+		}
+	}
+
+    // charger le nom de ficher
+
+    nomFile = document.getElementById('upload_file');
+    postFile = document.getElementById('id_media');
+
+    postFile.onchange = () =>{
+		let fileName = postFile.files[0].name;
+		nomFile.innerHTML = fileName;
+	}
+</script>
+
+<!-- poster sans recharger la page -->
+<script>
+    $(document).on('submit','#create_form',function(e){
+        // e.preventDefault();
+  
+        // $.ajax({
+
+        //     type: "POST",
+        //     url: "{% url 'accueil' %}",
+        //     data: $('#create_form').serialize(),
+        //     dataType: "json",
+
+        //     success:function(data){
+        //         create_form.reset()
+        //     },
+        //     error: function(data){
+        //         // alert('An error occured')
+        //     }
+        // });
+        alert(data);
+        document.getElementById('fermerMod').click();
+    });
+</script>
+
+
+<!-- actualiser la page chaque 1 secondes -->
+
+<!-- <script>
+    $(document).ready(function(){
+
+        setInterval(function(){
+            $.ajax({
+                // type: 'POST',
+                url : "{% url 'accueil' %}",
+                success: function(response){
+                    
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },1000);
+    })
+</script> -->
+
+
+<!-- commenter un projet -->
+
+<script>
+    comForms = document.querySelectorAll('.btn_sub');
+    corps = document.querySelectorAll('#corps');
+    projets = document.querySelectorAll('#projet');
+    auteurs = document.querySelectorAll('#auteur');
+
+    // envoyer le commentaire
+
+    for (let i = 0; i < comForms.length; i++) {
+        comForms[i].addEventListener("click", function(e){
+            e.preventDefault();
+            // alert(projets[i].value);
+            $.ajax({
+                type:'POST',
+                url:'CommentPost',
+                data:{
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    corps:corps[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                    corps[i].value = '';
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
+
+    // raffraichir la liste des commentaires
+
+    listComments = document.querySelectorAll('.chat');
+// $(document).ready(function(){
+//     for (let i = 0; i < listComments.length; i++) {
+//         listComments[i].addEventListener("click", function(e){
+//             // alert(i);
+//             setInterval(function(){
+//                 $.ajax({
+//                     type: 'GET',
+//                     url : "{% url 'accueil' %}",
+//                     success: function(response){
+//                         // console.log(response);
+//                         listComments[i].empty();
+//                         alert(i);
+//                     },
+//                     error: function(response){
+//                         alert('An error occured')
+//                     }
+//                 });
+//             },1000);
+//         })   
+//     }
+// });
+
+    $(document).ready(function(){
+
+        // setInterval(function(){
+            $.ajax({
+                // type: 'POST',
+                url : "{% url 'accueil' %}",
+                success: function(response){
+                    for (let i = 0; i < listComments.length; i++) {
+                        // alert(i);
+                        // corps[i].value = corps[i].value + i ;
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        // },1000);
+    })
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script type="text/javascript">
+    $(document).on('submit','#create_form',function(e){
+        e.preventDefault();
+  
+        $.ajax({
+            type:'POST',
+            url:"{% url 'accueil' %}",
+            data:{
+                id_title:$('#id_title').val(),
+                id_categorie:$('#id_categorie').val(),
+                id_investi:$('#id_investi').val(),
+                id_description:$('#id_description').val(),
+                id_etudiant:$('#id_etudiant').val(),
+                id_image:$('#id_image').val(),
+                id_media:$('#id_media').val(),
+                form_type:$('#form_type').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                // alert(data)
+            }
+        });
+        document.getElementById('fermerMod').click();
+    });
+</script> -->
+
 
 {% endblock %}
