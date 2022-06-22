@@ -24,4 +24,5 @@ urlpatterns = [
     path('signup', signup, name='signup'),
     path('signup/student_register/<str:pk>',student_signup, name='student_signup'),
     path('signup/investor_register/<str:pk>', investor_signup, name='investor_signup'),
+    path('consulter_projet', consulter_projet, name='consulter_projet'),
 ]

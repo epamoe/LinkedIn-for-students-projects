@@ -1,0 +1,519 @@
+{% extends 'base-accueil.html' %}
+{% load static %}
+
+{% block title %} FindIvest | Accueil {% endblock %}
+
+{% block content %}
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FindInvest</title>
+
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+    <link rel="stylesheet" href="accueil.css">
+    <script src="jquery-3.1.1.min.js"></script>
+    <style>
+body{margin-top:20px;
+background-color:#f2f6fc;
+color:#69707a;
+}
+.img-account-profile {
+    height: 17rem;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+.card .card-header {
+    font-weight: 500;
+}
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+.form-control, .dataTable-input {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #69707a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+    color: #0061f2;
+    border-bottom-color: #0061f2;
+}
+.nav-borders .nav-link {
+    color: #69707a;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+
+
+
+
+
+    </style>
+
+<div class="container-fluid-xl px-4 mt-4">
+    
+
+
+
+
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-3">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img class="img-account-profile rounded-circle mb-2" src="../../media/default.jpeg" alt="">
+                    <!-- Profile picture help block-->
+                    <div class="small font-italic text-muted mb-4">Stone boy </div>
+                    <!-- Profile picture upload button-->
+                    <button class="btn btn-primary" type="button">Update profile</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+           
+            <div class="middle">
+                <!-- --------- d�but recherche ------------ -->
+            
+                <div class="searchNav" id="searchNavId">
+                    <div class="result">
+                        <div class="search-bar my-2">
+                            <input class="search-bar-input" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
+                        </div>
+              
+                            <div class="to-search-project">
+                                <a href="#p">
+                                    <div class="profile-photo">
+                                        <img src="../../media/default.jpeg">
+                                    </div>
+                                    <span>
+                                        <h3></h3>
+                                        <h5></h5>
+                                    </span>
+                                </a>
+                            </div>
+            
+                    </div>
+                </div>
+    
+                <!-- -------------- fin recherche ------------ -->
+    
+       
+                    <div class="create-post" id="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                        
+                        
+                            <div class="profile-photo"  style="cursor: pointer;">
+                                <img src="../../media/default.jpeg">
+                            </div>
+             
+                            
+                       
+                        <button class="btn btn-primary">Mes projets</button>
+                    </div>
+      
+    
+                <!-- ------------ posts --------------- -->
+                <div class="posts">
+             
+                        <!-- ------------ post 1 --------------- -->
+                        <div class="post" id="#projet">
+                            <div class="head">
+                                <div class="user">
+                                    <a href="">
+                                        <div class="profile-photo">
+                                            <img src="../../media/Plan de travail 1.png">
+                                        </div>
+                                    </a>
+                                    <div class="autor">
+                                        <a href="#">
+                                            <h3> Projet</h3>
+                                            <small>lieux </small>
+                                        </a>
+                                    </div>
+                                </div>
+                     
+                                    <div class="dropstart">
+                                        <span class="edit" id="dropdownPostActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="uil uil-ellipsis-h"></i> 
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
+                                            <li><a class="dropdown-item" href=""  data-bs-toggle="modal" data-bs-target="#createPostModal">Modifier</a></li>
+                                            <li><a class="dropdown-item" href="" onclick="return delete_post();">Supprimer</a></li>
+                                        </ul>
+                                    </div>
+                                
+                            </div>
+                            <div class="post-description">
+                                <div class="post-title">
+                                    <h5></h5>
+                                </div>
+                                <p>
+                                  
+                                </p>
+                        
+                                    <p>
+                                        <a href="" download="FindInvest_Document">Description détaillé PDF</a>
+                                    </p>
+                            
+                            </div>
+                            <div class="photo">
+                                <a href="">
+                                    <img src="../../media/Plan de travail 1.png">
+                                </a>
+                            </div>
+    
+                            <div class="action-buttons">
+                                <div class="interaction-buttons">
+                                    <span>
+                                        <i class="uil uil-heart"></i>
+                                        <span class="text-muted text-small">15</span>
+                                    </span>&emsp;
+                                    <span>
+                                        <i class="uil uil-comment-dots icon-toggle-comments"></i>
+                                        <span class="text-muted text-small">15</span>
+                                    </span>&emsp;
+                                    <span><i class="uil uil-share-alt"></i></span>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="favorite">
+                                    <span><i class="uil uil-favorite"></i></span>
+                                  
+                  
+                                        <a id="btn-disc" href=""><i class="uil uil-comments-alt"></i></a>
+                         
+                                </div>
+                            </div>
+    
+                            <div class="liked-by">
+                                <span><img src=""></span>
+                                <span><img src=""></span>
+                                <span><img src=""></span>
+                                <p>Aim� par <b>Tom Michel</b> et <b>321 autres</b></p>
+                            </div>
+    
+                            <div class="caption">
+                                <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#g�nie</span>
+                            </div>
+    
+                            <!-- ------------------- partie commentaires ---------------------- -->
+    
+                            <div class="comments mt-1">
+                                <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
+                                <div class="list-comments mt-3">
+                                    <div class="chat pt-4">
+    
+                                        <!-- comentaire 1 -->
+                                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                            <div>
+                                                <div class="avatar">
+                                                    <img src="">
+                                                </div>
+                                            </div>
+                                            <div class="left-messages">
+                                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                    Let me know when you're available?
+                                                </span>
+                                                <br>
+                                                <div class="ms-2 my-1">
+                                                    <span class="text-muted">
+                                                        <span class="btn-reply-comment">R�pondre</span>&emsp;
+                                                        01:13PM
+                                                    </span>
+                                                </div>
+    
+                                                <!-- --------- input r�ponse commentaire 1 ------- -->
+                                                <div class="reply-comment">
+                                                    <form action="" method="post">
+                                                      
+                                                        <input type="text" name="" id="" placeholder="Votre r�ponse">
+                                                        <div class="send">
+                                                            <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                            <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                        </div>
+                                
+                                                    </form>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+    
+                                        <!-- votre commentaire 1 -->
+                                        <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
+                                            <div class="right-messages">
+                                                <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                                    Let me know when you're available?
+                                                </span>
+                                                <br>
+                                                <div class="me-2">
+                                                    <span class="text-muted">01:13PM</span>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+    
+                                        <!-- --------------- commentaire 2 --------------- -->
+                                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                            <div>
+                                                <div class="avatar">
+                                                    <img src="">
+                                                </div>
+                                            </div>
+                                            <div class="left-messages">
+                                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                    Let me know when you're available?
+                                                </span>
+                                                <br>
+                                                <div class="ms-2 my-1">
+                                                    <span class="text-muted">
+                                                        <span class="btn-reply-comment">R�pondre</span>&emsp;
+                                                        01:13PM
+                                                    </span>
+                                                </div>
+                                                <!-- --------- input r�ponse commentaire 2 ------- -->
+                                                <div class="reply-comment">
+                                                    <form action="" method="post">
+                                                     
+                                                        <input type="text" name="" id="" placeholder="Votre r�ponse">
+                                                        <div class="send">
+                                                            <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                            <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                        </div>
+                                
+                                                    </form>
+                                                </div>
+                                                <br>
+    
+                                                <!-- ---------------- reponse commentaire 2 ---------------- -->
+                                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                                    <div>
+                                                        <div class="avatar">
+                                                            <img src="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="left-messages">
+                                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                            Let me know when you're available?
+                                                        </span>
+                                                        <br>
+                                                        <div class="ms-2 my-1">
+                                                            <span class="text-muted">
+                                                                <span class="btn-reply-comment">R�pondre</span>&emsp;
+                                                                01:13PM
+                                                            </span>
+                                                        </div>
+                                                        <!-- --------- input r�ponse � la r�ponse commentaire 2 ------- -->
+                                                        <div class="reply-comment">
+                                                            <form action="" method="post">
+                                                             
+                                                                <input type="text" name="" id="" placeholder="Votre r�ponse">
+                                                                <div class="send">
+                                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                                </div>
+                                        
+                                                            </form>
+                                                        </div>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <!-- votre commentaire 1 -->
+                                        <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
+                                            <div class="right-messages">
+                                                <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                                    Let me know when you're available?
+                                                </span>
+                                                <br>
+                                                <div class="me-2">
+                                                    <span class="text-muted">01:13PM</span>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="send-comment">
+                                    <form action="" method="post">
+                                  
+                                        <input type="text" name="" id="" placeholder="Votre commentaire">
+                                        <div class="send">
+                                            <input type="submit" id="send-message" value="Envoer" hidden>
+                                            <label for="send-message"><i class="uil uil-message"></i></label>
+                                        </div>
+                
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                
+                </div>
+                <!-- ------------ end posts --------------- -->
+            </div>
+            
+
+            <!-- ============== END OF MIDDEL =============== -->
+                        
+
+
+
+
+            </div>
+            <div class="col-xl-3">
+               
+                <div class="container">
+                    <!-- ============== LEFT =============== -->
+                    <div class="left">
+                        <a class="profile">
+                       
+                                <div class="profile-photo"  style="cursor: pointer;">
+                                    <img src="../../media/default.jpeg">
+                                </div>
+                        
+                            
+                     
+                            <div class="handle">
+                                <h4></h4>
+                            </div>
+                        </a>
+            
+                        <!-- ---------- sidebar ---------- -->
+                        <div class="sidebar">
+                            <!-- <a class="menu-item active">
+                                <span><i class="uil uil-home"></i></span><h3>Home</h3>
+                            </a> -->
+            
+                            <!-- lance le modal des discussions -->
+                            <a class="menu-item" id="messages-notifications"  data-bs-toggle="modal" data-bs-target="#discussionModal">
+                                <span><i class="uil uil-envelope"><small class="notifications-count">6</small></i></span><h3>Messages</h3>
+                            </a>
+                            <a class="menu-item" id="notifications">
+                                <span><i class="uil uil-bell"><small class="notifications-count">9+</small></i></span><h3>Notifications</h3>
+                                <!-- ------------ notifications popup -------------- -->
+                                <div class="notifications-popup">
+                                    <div>
+                                        <div class="profile-photo">
+                                            <img src="../../media/default.jpeg">
+                                        </div>
+                                        <div class="notifications-body">
+                                            <b>Flavie Daniella</b> commened on your post
+                                            <small class="text-muted">2 DAYS AGO</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="profile-photo">
+                                            <img src="">
+                                        </div>
+                                        <div class="notifications-body">
+                                            <b>Mengue Victor</b> liked your post
+                                            <small class="text-muted">2 DAYS AGO</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="profile-photo">
+                                            <img src="">
+                                        </div>
+                                        <div class="notifications-body">
+                                            <b>Nguete Dave</b> commened on your post
+                                            <small class="text-muted">2 DAYS AGO</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="profile-photo">
+                                            <img src="">
+                                        </div>
+                                        <div class="notifications-body">
+                                            <b>Bikim Yvelos</b> liked your post
+                                            <small class="text-muted">2 DAYS AGO</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="profile-photo">
+                                            <img src="">
+                                        </div>
+                                        <div class="notifications-body">
+                                            <b>Tom Michel</b> commened on a post you are tagged
+                                            <small class="text-muted">2 DAYS AGO</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ------------ end notifications popup -------------- -->
+                            </a>
+                            <a class="menu-item">
+                                <span><i class="uil uil-folder"></i></span><h3>Accueil</h3>
+                            </a>
+                            <a class="menu-item">
+                                <span><i class="uil uil-folder-heart"></i></span><h3>Mes favoris</h3>
+                            </a>
+                            <a class="menu-item">
+                                <span><i class="uil uil-users-alt"></i></span><h3>Abonnées</h3>
+                            </a>
+                            <a class="menu-item" id="theme">
+                                <span><i class="uil uil-palette"></i></span><h3>Theme</h3>
+                            </a>
+                            <!-- <a class="menu-item">
+                                <span><i class="uil uil-setting"></i></span><h3>Param�tres</h3>
+                            </a> -->
+                        </div>
+            
+                        <!-- ------------ end of sidebar --------- -->
+                    
+                       
+                    </div>
+
+
+
+                    <div>
+                       
+                   </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="accueil.js"></script>
+        <script src="bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
+         <script src="jquery-3.6.0.min.js"></script> 
+        
+
+{% endblock %}

@@ -485,4 +485,5 @@ def investor_signup(request, pk):
     }
     return render(request, 'users/register_investor.html', context)
 
-
+def consulter_projet(request):
+    return render(request, 'users/consulter_projet.html')
