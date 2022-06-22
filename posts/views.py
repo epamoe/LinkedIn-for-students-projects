@@ -273,8 +273,14 @@ def getMessages(request, room):
             
 #     return render(request, 'posts/comment.html', context)
 
+<<<<<<< HEAD
 
 
+=======
+
+def consulter_projet(request):
+    return render(request, 'posts/consulter_projet.html')
+>>>>>>> 1c423ae1e11cec5cb21b81e7403ff4ef2ae469a1
 
 
 
