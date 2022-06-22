@@ -10,7 +10,7 @@ urlpatterns = [
     path('update_post/<str:pk>', update_post, name='update_post'),
     path('create_post', create_post, name='create_post'),
     path('list_projects', list_projects, name='list_projects'),
-    path('consulter_projet', consulter_projet, name='consulter_projet'),
+
 
  
 
