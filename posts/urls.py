@@ -19,5 +19,6 @@ urlpatterns = [
 
     # comment post
     path('CommentPost', CommentPost, name='CommentPost'),
+    path('getComments', getComments, name='getComments'),
 
 ]

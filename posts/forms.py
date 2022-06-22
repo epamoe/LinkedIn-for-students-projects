@@ -18,19 +18,19 @@ class ProjetForm(forms.ModelForm):
             
 		]
 
-class ComForm(forms.ModelForm):
-	class Meta():
-		model = Commentaire
-		fields = ['corps',]
-		labels = {'corps': 'Commentaires'}
-		widgets = {
-			'corps': forms.Textarea(attrs={
-				'class':'form-control',
-				'rows':4,
-				'cols':70,
-				'placeholder':'Votre commentaire'
-			})
-		}
+# class ComForm(forms.ModelForm):
+# 	class Meta():
+# 		model = Commentaire
+# 		fields = ['corps',]
+# 		labels = {'corps': 'Commentaires'}
+# 		widgets = {
+# 			'corps': forms.Textarea(attrs={
+# 				'class':'form-control',
+# 				'rows':4,
+# 				'cols':70,
+# 				'placeholder':'Votre commentaire'
+# 			})
+# 		}
 
 class RepForm(forms.ModelForm):
 	class Meta():

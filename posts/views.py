@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.models import *
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from .forms import ProjetForm, ComForm, RepForm
-from .models import Projet, Room, Message, Commentaire, Reponse
+from .forms import ProjetForm, RepForm
+from .models import Projet, Room, Message, Commentaire, ComMessage, Reponse
 
 # Create your views here.
 
@@ -14,7 +14,6 @@ from .models import Projet, Room, Message, Commentaire, Reponse
 
 def index(request):
     return render(request, 'posts/index.html')
-
 
 
 # page d'accueil (2) des publications
@@ -46,6 +45,16 @@ def accueil(request):
             else:
                 err_create_post = create_post_form.errors
     
+    # comments
+    # usrNameList = []
+    # usrPicList = []
+    # for u in userList:
+    #     usrNameList.append(u.username)
+    #     if Etudiant.objects.filter(user=u).exists():
+    #         usrPicList.append(Etudiant.objects.get(user=u).photoProfil.url)
+    #     elif Investisseur.objects.filter(user=u).exists():
+    #         usrPicList.append(Investisseur.objects.get(user=u).photoProfil.url)
+
     context = {
         # creer un projet
         'create_post_form':create_post_form,
@@ -56,6 +65,10 @@ def accueil(request):
         # chat
         'roomList':roomList,
         'userList':userList,
+        
+        # comments
+        'usrNameList':usrNameList,
+        'usrPicList':usrPicList,
     }
     return render(request, 'posts/accueil.html', context)
 
@@ -91,8 +104,6 @@ def list_projects(request):
     return render(request, 'posts/list_projects.html', context)
 
 
-
-
 # update de project
 @login_required(login_url='connexion')
 def update_post(request, pk):
@@ -124,7 +135,6 @@ def update_post(request, pk):
     }
 
     return render(request, 'posts/update_post.html', context)
-
 
 
 # delete de project
@@ -250,11 +260,25 @@ def CommentPost(request):
     corps = request.POST['corps']
 
     projet = Projet.objects.get(id=proj)
-    auteur = User.objects.get(id=aut)
+    user = User.objects.get(id=aut)
 
-    new_comment = Commentaire.objects.create(projet=projet, auteur=auteur, corps=corps)
+    # créer un nouveau commentaire
+    new_comment = Commentaire.objects.create(projet=projet, user=user)
     new_comment.save()
+
+    # céer un nouveau message
+    new_comMsg = ComMessage.objects.create(commentaire=new_comment, auteur=new_comment.user.username, id_projet=new_comment.projet.id, corps=corps)
+    new_comMsg.save()
+
     return HttpResponse('Comment sent successfully')
+
+def getComments(request):
+    comments = ComMessage.objects.all()
+    context = {
+        "comments":list(comments.values()),
+    }
+    return JsonResponse(context)
+
 
 
 
