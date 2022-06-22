@@ -75,9 +75,6 @@
 
             <!-- ---------- sidebar ---------- -->
             <div class="sidebar">
-                <!-- <a class="menu-item active">
-                    <span><i class="uil uil-home"></i></span><h3>Home</h3>
-                </a> -->
 
                 <!-- lance le modal des discussions -->
                 <a class="menu-item" id="messages-notifications"  data-bs-toggle="modal" data-bs-target="#discussionModal">
@@ -138,7 +135,7 @@
                 <a class="menu-item">
                     <span><i class="uil uil-folder"></i></span><h3>Mes projets</h3>
                 </a>
-                <a class="menu-item">
+                <a href="{% url 'favoris' request.user.id %}" class="menu-item">
                     <span><i class="uil uil-folder-heart"></i></span><h3>Mes favoris</h3>
                 </a>
                 <a class="menu-item">
@@ -147,9 +144,6 @@
                 <a class="menu-item" id="theme">
                     <span><i class="uil uil-palette"></i></span><h3>Thème</h3>
                 </a>
-                <!-- <a class="menu-item">
-                    <span><i class="uil uil-setting"></i></span><h3>Paramètres</h3>
-                </a> -->
             </div>
 
             <!-- ------------ end of sidebar --------- -->
@@ -1008,7 +1002,23 @@
 
     for (let i = 0; i < btnFavoris.length; i++) {
         btnFavoris[i].addEventListener("click", function(e){
-            alert(projets[i].value);
+            // alert(projets[i].value);
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'createFavoris',
+                data:{
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
         });
         
     }

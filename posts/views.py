@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import *
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .forms import ProjetForm, RepForm
-from .models import Projet, Room, Message, Commentaire, ComMessage, Reponse
+from .models import Projet, Room, Message, Commentaire, ComMessage, Reponse, Favoris
 
 # Create your views here.
 
@@ -55,6 +55,10 @@ def accueil(request):
     #     elif Investisseur.objects.filter(user=u).exists():
     #         usrPicList.append(Investisseur.objects.get(user=u).photoProfil.url)
 
+
+    # favorite
+    favList = Favoris.objects.all()
+
     context = {
         # creer un projet
         'create_post_form':create_post_form,
@@ -67,8 +71,11 @@ def accueil(request):
         'userList':userList,
         
         # comments
-        'usrNameList':usrNameList,
-        'usrPicList':usrPicList,
+        # 'usrNameList':usrNameList,
+        # 'usrPicList':usrPicList,
+
+        # favorite
+        'favList':favList
     }
     return render(request, 'posts/accueil.html', context)
 
@@ -282,36 +289,55 @@ def getComments(request):
 
 
 
+# ====================== FAVORIS =======================
 
-# commenter un projet
+def createFavoris(request):
+    proj = request.POST['projet']
+    aut = request.POST['auteur']
 
-# @login_required(login_url='connexion')
-# def commenterPublication(request):
-#     comments = Comment.objects.all()
-#     list_comment = []
-    
-#     for com in comments:
-#         list_comment.append(com)
-#     comment_form = CommentForm()
-#     error = ''
-#     if request.method == "POST":
-#         title = request.POST.get('title')
-#         comment_form = CommentForm(request.POST)
-        
-#         if comment_form.is_valid:
-#             comment = comment_form.save()
-#             comment.save()
-#             return JsonResponse({'new_comment':comment.title})
-            
-#         else:
-#             error = comment_form.errors()
-#             comment_form = CommentForm()
-            
-#     context = {
-#         'comment':comment_form,
-#         'error': error,
-#         'comments':list_comment,
-#     }
-            
-#     return render(request, 'posts/comment.html', context)
+    projet = Projet.objects.get(id=proj)
+    user = User.objects.get(id=aut)
+    nomFav = proj+" "+aut
+
+    # créer un nouveau favoris
+    if Favoris.objects.filter(nomFav=nomFav).exists():
+        Favoris.objects.get(nomFav=nomFav).delete()
+        return HttpResponse('Removed in Favoris list successfully')
+    else:
+        new_favoris = Favoris.objects.create(projet=projet, user=user, nomFav=nomFav)
+        new_favoris.save()
+    return HttpResponse('Added in Favoris list successfully')
+
+
+def favoris(request, id_u):
+    postList = Projet.objects.all()
+    postListUnique = []
+    pListCat = []
+    for p in postList:
+        if p.categorie not in pListCat:
+            postListUnique.append(p)
+            pListCat.append(p.categorie)
+
+
+    user = User.objects.get(id=id_u)
+    projetList = Projet.objects.all()
+    favList = Favoris.objects.filter(user=user)
+
+    listProjet = []
+    for fav in favList:
+        listProjet.append(fav.projet)
+    nbFav = len(listProjet)
+    context = {
+        'listProjet':listProjet,
+        'nbFav':nbFav,
+
+        'postList':postList,
+        'postListUnique':postListUnique,
+    }
+    return render(request, 'posts/favoris.html', context)
+
+
+
+def test(request):
+    return render(request, 'posts/test.html')
 

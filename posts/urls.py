@@ -21,4 +21,10 @@ urlpatterns = [
     path('CommentPost', CommentPost, name='CommentPost'),
     path('getComments', getComments, name='getComments'),
 
+    # favoris
+    path('favoris/<str:id_u>', favoris, name="favoris"),
+    path('createFavoris', createFavoris, name="createFavoris"),
+
+
+    path('test', test, name='test'),
 ]

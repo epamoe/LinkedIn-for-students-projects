@@ -106,4 +106,5 @@ class Reponse(models.Model):
 class Favoris(models.Model):
     projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='favoris')
     user = models.ForeignKey(User, models.CASCADE)
+    nomFav = models.CharField(max_length=100)
 

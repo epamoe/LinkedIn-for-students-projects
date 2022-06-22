@@ -1,0 +1,353 @@
+{% extends 'base-accueil.html' %}
+{% load static %}
+
+{% block title %} FindIvest | favoris {% endblock %}
+
+{% block content %}
+
+
+<!-- ============== NAV ================= -->
+<nav>
+  <div class="container">
+      <a href="#create-post">
+          <h2 class="log">
+              <span style="opacity: 0; visibility: hidden;">FindInvest</span>
+              <img src="{% static 'img/logo1.png' %}">
+          </h2>
+      </a>
+      
+      <div class="search-bar" id="search-bar-id">
+          <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+          <i class="uil uil-search"></i>
+          <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
+      </div>
+
+      <div class="create dropdown">
+          {% if request.user.etudiant.id %}
+              <div class="profile-photo" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{{request.user.etudiant.photoProfil.url}}">
+              </div>
+          {% else %}
+              <div class="profile-photo" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{{request.user.investisseur.photoProfil.url}}">
+              </div>
+          {% endif %}
+          <ul class="dropdown-menu">
+              <li>
+                  {% if request.user.etudiant.id %}
+                      <a class="dropdown-item" href="{% url 'profile_student' request.user.etudiant.id %}">
+                  {% else %}
+                  {% endif %}
+                  <i class="uil uil-user"></i> Profil</a>
+              </li>
+              <li><a class="dropdown-item" href="{% url 'user_logout' %}">
+                  <i class="uil uil-sign-out-alt"></i> Logout
+              </a></li>
+          </ul>
+      </div>
+  </div>
+</nav>
+
+<!-- ============== MAIN ================= -->
+<main>
+  <div class="container">
+      <!-- ============== LEFT =============== -->
+      <div class="left">
+          <a class="profile">
+            {% if request.user.etudiant.id %}
+                <div class="profile-photo" style="cursor: pointer;">
+                    <img src="{{request.user.etudiant.photoProfil.url}}">
+                </div>
+            {% else %}
+                <div class="profile-photo" style="cursor: pointer;">
+                    <img src="{{request.user.investisseur.photoProfil.url}}">
+                </div>
+            {% endif %}
+              <div class="handle">
+                  <h4>{{request.user.last_name}}</h4>
+              </div>
+          </a>
+
+          <!-- ---------- sidebar ---------- -->
+          <div class="sidebar">
+            {% if request.user.etudiant.id %}
+              <a class="menu-item">
+                  <span><i class="uil uil-folder"></i></span><h3>Mes projets</h3>
+              </a>
+            {% endif %}
+              <a class="menu-item active">
+                  <span><i class="uil uil-folder-heart"></i></span><h3>Mes favoris</h3>
+              </a>
+            {% if request.user.etudiant.id %}
+              <a class="menu-item">
+                  <span><i class="uil uil-users-alt"></i></span><h3>Abonnées</h3>
+              </a>
+            {% endif %}
+              <a class="menu-item" id="theme">
+                  <span><i class="uil uil-palette"></i></span><h3>Thème</h3>
+              </a>
+          </div>
+
+          <!-- ------------ end of sidebar --------- -->
+      </div>
+      <!-- ============== END OF LEFT =============== -->
+
+
+      <!-- ============== MIDDLE =============== -->
+
+      <!-- =======DEBUT DU STYLE DU MIDDLE ========-->
+      <style>
+        .card{
+          border-radius: 20px;
+          opacity: 100%;
+          margin: 5px;
+        }
+        .card::before{
+          opacity: 12%;
+        }
+
+        .card-body .img-profil{
+          border-radius: 50%;
+          height: 135px;
+          width: 135px;
+          margin-left: 10px;
+        }
+
+        .card-body .card-title{
+          max-width: 160px;
+          display: block;
+          font-size: 1.1rem;
+        }
+        .card-body .domain{
+            margin-left: 16rem;
+            text-align: center;
+            position: absolute;
+            margin-top: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .card-body .titre-projet{
+            margin-left: 14rem;
+            display: block;
+            position: absolute;
+            margin-top: 3.9rem;
+        }
+        .img-projet{
+            display:inline-flex;
+        }
+        .img-projet img{
+            width: 150px;
+            height: 140px;
+            background-color: #D9D9D9;
+            margin: 5px;
+        }
+      </style>
+      <!-- ======= FIN DU STYLE DU MIDDLE ========-->
+
+
+      <!-- ======= DEBUT DU Script ========-->
+        <script lang="french">
+          
+        </script>
+      <!-- ======= FIN DU Script ========-->
+      <div class="middle">
+
+         <!-- --------- début recherche ------------ -->
+        
+          <div class="searchNav" id="searchNavId">
+            <div class="result">
+                <div class="search-bar my-2">
+                    <input class="search-bar-input" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
+                </div>
+                {% for post in postList %}
+                    <div class="to-search-project">
+                        <a href="#projet{{post.id}}">
+                            <div class="profile-photo">
+                                <img src="{{post.etudiant.photoProfil.url}}">
+                            </div>
+                            <span>
+                                <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                <h5>{{post.title}}</h5>
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+          </div>
+      <!-- -------------- fin recherche ------------ -->
+        <div class="contain-main">
+            <div class="card">
+                <div class="card-body">
+                    <p class="domain w-bold">Antropologie</p>
+                    <p class="titre-projet text-muted w-bolder">REGULATION DE PROGRAMME ACADEMIQUE</p>
+                    <img src="../../static/images/profile-4.jpg" alt="" class="img-profil">
+                    <h5 class="card-title">Nguete Dave TChatat Nephtali</h5>
+                    <div class="img-projet">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius!
+                    Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="domain w-bold">Science</p>
+                    <p class="titre-projet text-muted w-bolder">FOOD PREVISION</p>
+                    <img src="../../static/images/profile-3.jpg" alt="" class="img-profil">
+                    <h5 class="card-title">Mengue Owone Victor AUDREY</h5>
+                    <div class="img-projet">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius!
+                    Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="domain w-bold">Informatique</p>
+                    <p class="titre-projet text-muted w-bolder">FindRepeat</p>
+                    <img src="../../static/images/profile-5.jpg" alt="" class="img-profil">
+                    <h5 class="card-title"> Bikim Bi Yvelos</h5>
+                    <div class="img-projet">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius!
+                    Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- ============== END OF MIDDEL =============== -->
+
+      <!-- ============== RIGHT =============== -->
+      <div class="right">
+        <!-- -------- catégories ---------- -->
+        <div class="categories">
+            <div class="heading">
+               <h4>Tous les projets</h4>
+               <i class="uil uil-0-plus"></i>
+            </div>
+
+            <!-- ---------- search bar ------------- -->
+            <div class="search-bar">
+                <i class="uil uil-search"></i>
+                <input type="search" name="" id="category-search" placeholder="Rechercher...">
+            </div>
+            <!-- -------- project categrories --------- -->
+            <div class="category">
+               <h6 class="active">Types</h6>
+               <h6>Plus Aimés</h6>
+               <h6 class="invest-projects">Investis(6)</h6>
+            </div>
+
+            <div class="accordion accordion-flush" id="cat1">
+                {% for post in postListUnique %}
+                    <div class="accordion-item mb-4" id="accordion-cat" style="border: none;">
+                        <div class="project-line" style="cursor: pointer;">
+                            <div class="project-body collapsed" data-bs-toggle="collapse" data-bs-target="#cat{{post.categorie.id}}" aria-expanded="false">
+                                <h5>{{post.categorie}}</h5>
+                                <p class="text-muted">nombre projets publiés</p>
+                            </div>
+                            <span class="">
+                                <i class="uil uil-direction"></i>
+                            </span>
+                        </div>
+                        
+                        {% for p in postList %}
+                            {% if p.categorie == post.categorie %}
+                                <div id="cat{{post.categorie.id}}" class="accordion-collapse collapse my-2" aria-labelledby="flush-head{{post.categorie.id}}" data-bs-parent="#cat2">
+                                    <!-- <p></p> -->
+                                    <a href="{% url 'accueil' %}#projet{{p.id}}">{{p.title}}</a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+      <!-- ============== END OF RIGTH =============== -->
+  </div>
+</main>
+
+
+<!-- ==================== THEME CUSTOMIZATION ======================= -->
+<div class="customize-theme">
+  <div class="carte">
+      <span class="bt-close"><i class="uil uil-multiply" id="close_modal"></i></span>
+      <h2>Changez votre affichage</h2>
+      <p class="text-muted">Gérez vos texte, couleurs, et arrière-plan</p>
+
+      <!-- -------------- font sizes ------------- -->
+      <div class="font-size">                
+          <h4>Taille de police</h4>
+          <div>
+              <h6>Aa</h6>
+              <div class="choose-size">
+                  <span class="font-size-1"></span>
+                  <span class="font-size-2"></span>
+                  <span class="font-size-3 active"></span>
+                  <span class="font-size-4"></span>
+              </div>
+              <h3>Aa</h3>
+          </div>
+      </div>
+
+      <!-- primary colors -->
+      <div class="color">
+          <h4>Couleurs</h4>
+          <div class="choose-color">
+              <span class="color-1 active"></span>
+              <span class="color-2"></span>
+              <span class="color-3"></span>
+              <span class="color-4"></span>
+          </div>
+      </div>
+
+      <!-- ----------- backgroung colors -->
+      <div class="background">
+          <h4>Arrière-plan</h4>
+          <div class="choose-bg">
+              <div class="bg bg-1 active">
+                  <span></span>
+                  <h5 for="bg-1">Clair</h5>
+              </div>
+              <div class="bg bg-2">
+                  <span></span>
+                  <h5 for="bg-2">Sombre</h5>
+              </div>
+              <div class="bg bg-3">
+                  <span></span>
+                  <h5 for="bg-3">Noir</h5>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
+
