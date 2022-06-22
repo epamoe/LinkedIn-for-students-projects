@@ -84,7 +84,7 @@
               <a class="menu-item" id="notifications">
                   <span><i class="uil uil-bell"><small class="notifications-count">9+</small></i></span><h3>Notifications</h3>
                   <!-- ------------ notifications popup -------------- -->
-                  <div class="notifications-popup">
+                  <div class="notifications-popup position-absolute" >
                       <div>
                           <div class="profile-photo">
                               <img src="{% static 'images/tm.jpg' %}">
@@ -161,10 +161,14 @@
       <style>
         .card{
           border-radius: 20px;
-          opacity: 90%;
+          opacity: 100%;
+          margin: 5px;
         }
-        
-        .card-body img{
+        .card::before{
+          opacity: 12%;
+        }
+
+        .card-body .img-profil{
           border-radius: 50%;
           height: 135px;
           width: 135px;
@@ -176,27 +180,126 @@
           display: block;
           font-size: 1.1rem;
         }
+        .card-body .domain{
+            margin-left: 16rem;
+            text-align: center;
+            position: absolute;
+            margin-top: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .card-body .titre-projet{
+            margin-left: 14rem;
+            display: block;
+            position: absolute;
+            margin-top: 3.9rem;
+        }
+        .img-projet{
+            display:inline-flex;
+        }
+        .img-projet img{
+            width: 150px;
+            height: 140px;
+            background-color: #D9D9D9;
+            margin: 5px;
+        }
       </style>
       <!-- ======= FIN DU STYLE DU MIDDLE ========-->
 
+
+      <!-- ======= DEBUT DU Script ========-->
+        <script lang="french">
+          
+        </script>
+      <!-- ======= FIN DU Script ========-->
       <div class="middle">
-        <div class="card">
-          <h5 class="card-header">Featured  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-          </svg></h5>
-          <div class="card-body">
-            <img src="../../static/images/profile-4.jpg" alt="">
-            <h5 class="card-title">Nguete Dave TChatat Nephtali</h5>
-            <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
-              adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
-              iusto sit molestias libero asperiores quam ratione numquam laborum, 
-              ipsam nesciunt cum suscipit ab magnam dolores eius!
-              Lorem ipsum dolor sit, amet consectetur 
-              adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
-              iusto sit molestias libero asperiores quam ratione numquam laborum, 
-              ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+
+         <!-- --------- début recherche ------------ -->
+        
+          <div class="searchNav" id="searchNavId">
+            <div class="result">
+                <div class="search-bar my-2">
+                    <input class="search-bar-input" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
+                </div>
+                {% for post in postList %}
+                    <div class="to-search-project">
+                        <a href="#projet{{post.id}}">
+                            <div class="profile-photo">
+                                <img src="{{post.etudiant.photoProfil.url}}">
+                            </div>
+                            <span>
+                                <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                <h5>{{post.title}}</h5>
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
           </div>
+      <!-- -------------- fin recherche ------------ -->
+        <div class="contain-main">
+            <div class="card">
+                <div class="card-body">
+                    <p class="domain w-bold">Antropologie</p>
+                    <p class="titre-projet text-muted w-bolder">REGULATION DE PROGRAMME ACADEMIQUE</p>
+                    <img src="../../static/images/profile-4.jpg" alt="" class="img-profil">
+                    <h5 class="card-title">Nguete Dave TChatat Nephtali</h5>
+                    <div class="img-projet">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius!
+                    Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="domain w-bold">Science</p>
+                    <p class="titre-projet text-muted w-bolder">FOOD PREVISION</p>
+                    <img src="../../static/images/profile-3.jpg" alt="" class="img-profil">
+                    <h5 class="card-title">Mengue Owone Victor AUDREY</h5>
+                    <div class="img-projet">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius!
+                    Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="domain w-bold">Informatique</p>
+                    <p class="titre-projet text-muted w-bolder">FindRepeat</p>
+                    <img src="../../static/images/profile-5.jpg" alt="" class="img-profil">
+                    <h5 class="card-title"> Bikim Bi Yvelos</h5>
+                    <div class="img-projet">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                        <img src="" alt="">
+                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius!
+                    Lorem ipsum dolor sit, amet consectetur 
+                    adipisicing elit. Ex voluptatibus temporibus quo consectetur, 
+                    iusto sit molestias libero asperiores quam ratione numquam laborum, 
+                    ipsam nesciunt cum suscipit ab magnam dolores eius</p>
+                </div>
+            </div>
         </div>
       </div>
       <!-- ============== END OF MIDDEL =============== -->
@@ -437,3 +540,4 @@
 </div>
 
 {% endblock %}
+
