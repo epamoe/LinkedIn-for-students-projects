@@ -224,7 +224,7 @@
                                         <i class="uil uil-ellipsis-h"></i> 
                                     </span>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
-                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal">Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}">Modifier</a></li>
                                         <li><a class="dropdown-item" href="{% url 'delete_post' post.id %}" onclick="return delete_post();">Supprimer</a></li>
                                     </ul>
                                 </div>
@@ -284,6 +284,9 @@
                                 <!-- <i class="uil uil-comments-alt"></i> -->
                                 {% if request.user.investisseur.id %}
                                     <a id="btn-disc" href="{% url 'createRoom' request.user.investisseur.id post.etudiant.id post.title %}"><i class="bi bi-messenger"></i></a>
+                                {% endif %}
+                                {% if post.etudiant.id == request.user.etudiant.id %}
+                                    <i style="color: green;" class="uil uil-money-withdraw markInvest"></i>
                                 {% endif %}
                             </div>
                         </div>

@@ -40,7 +40,7 @@ class Etudiant(Utilisateur):
     niveauEtude = models.CharField(choices=NIVEAUX, default='BAC + 1', max_length=100)
     universite = models.CharField(max_length=100)
     fiche_inscription = models.FileField(upload_to='documents/fiches_inscription', blank=True)
-    bio = models.TextField(max_length=300, null=True, blank=True)
+    bio = models.TextField(max_length=300, null=True, blank=True, default="Je suis un étudiant de l'UNIVERSITÉ DE YAOUNDÉ 1. Je suis assez ambitieux et jai des projets que je souhaiterais mettre sur le marché.")
     def __str__(self):
         return f'{self.user.username} Profile'
 

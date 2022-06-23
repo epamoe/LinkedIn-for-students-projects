@@ -156,6 +156,29 @@ def delete_post(request, pk):
     return HttpResponseRedirect('../accueil')
 
 
+# mes projets
+def mes_projets(request, id_e):
+    postList = Projet.objects.all()
+    postListUnique = []
+    pListCat = []
+    for p in postList:
+        if p.categorie not in pListCat:
+            postListUnique.append(p)
+            pListCat.append(p.categorie)
+
+    etu = Etudiant.objects.get(id=id_e)
+    listProjet = Projet.objects.filter(etudiant=etu)
+    usr = User.objects.get(id=etu.user.id)
+    context = {
+        'listProjet':listProjet,
+        'usr':usr,
+
+        'postList':postList,
+        'postListUnique':postListUnique,
+    }
+    return render(request, 'posts/mes_projets.html', context)
+
+
 
 
 
@@ -321,9 +344,9 @@ def favoris(request, id_u):
             pListCat.append(p.categorie)
 
 
-    user = User.objects.get(id=id_u)
+    usr = User.objects.get(id=id_u)
     projetList = Projet.objects.all()
-    favList = Favoris.objects.filter(user=user)
+    favList = Favoris.objects.filter(user=usr)
 
     listProjet = []
     for fav in favList:
@@ -332,6 +355,7 @@ def favoris(request, id_u):
     context = {
         'listProjet':listProjet,
         'nbFav':nbFav,
+        'usr':usr,
 
         'postList':postList,
         'postListUnique':postListUnique,
@@ -345,10 +369,4 @@ def getFavoris(request):
     return JsonResponse(context)
 
 
-
-
-
-
-def test(request):
-    return render(request, 'posts/test.html')
 

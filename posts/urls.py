@@ -10,6 +10,8 @@ urlpatterns = [
     path('update_post/<str:pk>', update_post, name='update_post'),
     path('create_post', create_post, name='create_post'),
     path('list_projects', list_projects, name='list_projects'),
+    path('mes_projets/<str:id_e>', mes_projets, name='mes_projets'),
+
 
     # chat 
     path('<str:room>/', room, name="room"),
@@ -27,5 +29,4 @@ urlpatterns = [
     path('getFavoris', getFavoris, name='getFavoris'),
 
 
-    path('test', test, name='test'),
 ]

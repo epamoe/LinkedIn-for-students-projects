@@ -1,235 +1,160 @@
-{% extends 'base.html' %}
+{% extends 'base-accueil.html' %}
 {% load static %}
-{% block title %} FindIvest | Accueil {% endblock %}
+
+{% block title %} FindInvest | Modifier un projet {% endblock %}
 
 {% block content %}
 
-
-{% if user.is_authenticated %}
-      <h1> Bienvenue<u>{{request.user.last_name}}</u></h1>
-      {% if user.etudiant.id %}
-        <a href="{% url 'update_profile_student' %}">Modifier profil Etudiant</a> 
-          {{request.user.etudiant.photoProfil.url}}
-      <br>
-          <a href="{% url 'profile_student' request.user.etudiant.id %}">Profil etudiant</a>
-          <br>
-      {% endif %}
-      {% if user.investisseur.id %}
-          <a href="{% url 'update_profile_investor' %}">Modifier profil Investisseur</a> 
-          {{request.user.investisseur.photoProfil.url}}
-          <br><br>
-      {% endif %}
-
-      <a href="{% url 'user_logout' %}">se déconnecter</a>
-{% endif %} 
-
-
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  border: 1px solid #888;
-  width: 28%;
-  height: 80%;
-}
-
-/* le bouton x de fermeture du modal */
-.close {
-  color: #aaaaaa;
-  font-size: 28px;
-  font-weight: bold;
-  float: right;
-  margin-right: -90px;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* gestion du formulaire */
-.form{
-    position: absolute;
-    background: #f2f2f2;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    
-    transition: .3s ease-in-out;
-    overflow: hidden;
-    border-radius: 10px;
-  }
-    
-    .form .form-group{
-      
-      margin-left: 20%;
-    }
-    .form-group input{
-      width: 150px;
-    /* margin-bottom: 20px; */
-      padding: 10px;
-      height: 55px;
-      width: 350px;
-      border-radius: 10px;
-      outline: none;
-      font-size: 16px;
-      color: #333;
-      /* border: #333 solid 1px; */
-      border: 1px solid #ced4da;
-    }
-    /* gestion des bouton */
-    .btn1,
-    .btn2{
-      margin-top: 20px;
-      display: flex;
-      width: 150px;
-      height: 50px;
-      font-size: 1.5rem;
-      padding: 5px 20px;
-      border-radius: 10px;
-      }
-    .form-group textarea{
-      margin-top: 10px;
-      height: 150px;
-      min-height: 150px;
-      max-height: 170px;
-      width: 350px;
-    }
-    .btn1{
-      background: #1b65d5d9;
-    }
-    .btn2{
-      background: orange;
-      float: right;
-      margin-top: -48px;
-    }
-
-    @media screen and (max-width: 992px){
-      .modal-content{
-        width: 540px;
-        height: 90%;
-      }
-    }
+	#modifyPostModal{
+		background: rgba(0, 0, 0, 0.5) !important;
+	}
 </style>
 
-
-<!-- button qui ouvre le modal -->
-<br>
-<button id="myBtn" class="btn btn-secondary">modifier</button>
-
-<!-- la div  Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    
-    <div class="form">
-      <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-          <span class="close">&times;</span>
-          <h2 style="text-align: center; margin-left: 50px; margin-top: 10px;">modifier le projet {{ projet.title}} </h2>
-          <div class="form-group">
-              <label>titre </label>
-              {{ projet_form.title }}
-            </div>
-            <div class="form-group">
-              <label>categorie</label>
-              {{ projet_form.categorie }}
-            </div>
+<div class="modal fade show" id="modifyPostModal" tabindex="-1" aria-labelledby="modifyPostLabel" style="display: block; padding-left: 0px;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modifyPostLabel">Publier/Modifier un projet</h5>
+          <i id="fermerMod" class="uil uil-multiply" data-bs-dismiss="modal" aria-label="Close" onclick="history.back()"></i>
+        </div>
+        <div class="modal-body">
+            <style>
+                textarea{
+                    width: 100%;
+                    height: 100px;
+                }
+            </style>
             
-            <div class="form-group">
-            <a href="/media/images/post_image/278579277_727274298705621_824190993923983777_n.jpg" style="display: none;" class="text-center">images/post_image/278579277_727274298705621_824190993923983777_n.jpg</a>
-            <input type="checkbox" name="image-clear" style="display: none;" id="image-clear_id">
-            <label for="image-clear_id" style="display: none;">Effacer</label><br>
+			{% comment %} <form id="create_form" method="post" enctype="multipart/form-data">
+				{{projet_form}}
 
-            <input type="file" name="image" accept="image/*" id="id_image" value="{{ projet.image }}">
-            </div>
+				<input type="text" id="form_type" name="form_type" value="create_form" hidden=""><p></p>
+                <center><input class="mt-4 btn btn-primary" type="submit" value="Publier"></center>
+			</form> {% endcomment %}
 
-            <div class="form-group">
-              <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description">{{ projet.description}}</textarea>
-            </div>
-                    <div class="form-group">
-                        <select name="etudiant" style="display: none;" required="" id="id_etudiant">
+            <form id="create_form" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrfmiddlewaretoken" value="eHq97Vw4aREHzz2HyvRBI2l0yBMlVPto3imbgD5X5eXoyLm6w79vo2YTowwg1IN1"> 
+                    
+                    
+                    {% comment %} <input type="text" name="title" maxlength="200" required="" id="id_title" placeholder="Titre du Projet"><p></p> {% endcomment %}
+                    {{projet_form.title}} <p></p>
 
-                            <option value="{{ request.user.etudiant.id }}">{{ request.user.etudiant }}</option>
+                    <p style="display: flex; align-items: center; gap: 1rem;">
+                        <label for="id_categorie">Catégorie</label>
+                        {% comment %} <select name="categorie" id="id_categorie">
+							<option value="INFORMATIQUE">INFORMATIQUE</option>
 
-                        </select>
-                    </div>
-                
-            <div class="form-group">
-              <button type="submit" class="btn1">publier</button>
-                        {{ err }}
-              <span class="btn2">annuler</span> 
-          </div>
-            
-      
-      
-      </form>
+							<option value="AGRICULTURE">AGRICULTURE</option>
+
+							<option value="ELEVAGE">ELEVAGE</option>
+
+							<option value="SANTE">SANTE</option>
+
+							<option value="AUTRES">AUTRES</option>
+
+						</select> {% endcomment %}
+						{{projet_form.categorie}}
+                    </p><p></p>
+
+                    {% comment %} <select name="investi" id="id_investi" hidden="">
+                        <option value="">---------</option>
+
+                        <option value="Oui">Oui</option>
+
+                        <option value="Non" selected="">Non</option>
+
+                    </select> {% endcomment %}
+					<span style="display: none;">
+						{{projet_form.investi}}
+					</span>
+
+                    {% comment %} <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description" placeholder="Description"></textarea><p></p> {% endcomment %}
+					{{projet_form.description}} <p></p>
+
+                    {% comment %} <select name="etudiant" required="" id="id_etudiant" hidden="">
+                        <option value="1">FindInvest_e Profile</option>
+                    </select> {% endcomment %}
+					<span style="display: none;">
+						{{projet_form.etudiant}}
+					</span>
+
+                    <center>
+                        <label id="image_post" for="id_image">
+                            <span>Insérez une image</span>
+                            <i class="uil uil-image-plus"></i>
+                            <img id="upload_image" src="{{projet.image.url}}" alt="">
+                        </label>
+                    </center>
+                    <input type="file" name="image" accept="image/*" id="id_image" hidden=""><p></p>
+					<span>
+						{% comment %} {{projet_form.image}} {% endcomment %}
+					</span>
+                    <hr>
+                    <center>
+                        <p class="mt-2 mb-0 text-small">Ajoutez un fichier qui décrire de manière plus détaillée votre projet</p>
+                        <label id="media_post" for="id_media">
+                            <i class="uil uil-file-plus"></i>
+                            <span class="text-muted text-small" id="upload_file">{{projet.media}}</span>
+                        </label>
+                    </center>
+                    <input type="file" name="media" id="id_media" hidden=""><p></p>
+
+
+                    <input type="text" id="form_type" name="form_type" value="create_form" hidden=""><p></p>
+                    <center><input class="mt-4 btn btn-primary" type="submit" value="Publier"></center>
+                    
+            </form>
+        </div>
+      </div>
     </div>
-  </div>
-
 </div>
+
+
+<!-- charger les ficheirs du formulaire de création d'un post -->
 <script>
-// obtenir le modal
+    // charger l'image
 
-var modal = document.getElementById("myModal");
+	let choosenImage = document.getElementById('upload_image');
+	let uploardButton = document.getElementById('image_post');
+    let postImage = document.getElementById('id_image');
 
-// obtnenir le bouton qui ouvre le modal
-var btn = document.getElementById("myBtn");
+	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
+				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
+	postImage.onchange = () =>{
+		let fileName = postImage.files[0].name.split(".");
+		let ext = fileName[fileName.length-1];
+		if(ListExt.indexOf(ext) === -1){
+			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		}else{
+			let reader = new FileReader();
+			reader.readAsDataURL(postImage.files[0]);
+			let file = postImage.files[0];
+			reader.onload = () => {
+				choosenImage.setAttribute("src", reader.result);
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var btn2 = document.getElementsByClassName("btn2")[0]
+			}
+		}
+	}
 
-// quand l'utilisateur click sur le bouton le modal s'ouvre 
-btn.onclick = function() {
-  modal.style.display = "block";
+    // charger le nom de ficher
 
-}
+    nomFile = document.getElementById('upload_file');
+    postFile = document.getElementById('id_media');
 
-
-// quans l'utilisateur clic sur le span x ou sur annuler le modals se ferme
-span.onclick = function() {
-  modal.style.display = "none";
-}
-btn2.onclick = function(){
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-
-
-
+    postFile.onchange = () =>{
+		let fileName = postFile.files[0].name;
+		nomFile.innerHTML = fileName;
+	}
 </script>
+
+
+
+
+<!-- ---------- copie de la page d'accueil --------------- -->
+
+{% include "posts/accueil.html" %}
+
+
+
 {% endblock %}
-
-
-

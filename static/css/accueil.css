@@ -1585,3 +1585,31 @@ MEDIA QUERIES FOR MOBILE PHONES
 
 }
 
+
+
+/* ================== pages profile =============== */
+
+.profile-info {
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.create-post.infos{
+    background: var(--color-primary) !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    color: #fff;
+    font-size: 1.4rem;
+    opacity: 0.8;
+}
+
+.profile-info .contacts i {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+}
+
+
+

@@ -1,7 +1,7 @@
 {% extends 'base-accueil.html' %}
 {% load static %}
 
-{% block title %} FindIvest | Liste des favoris favoris {% endblock %}
+{% block title %} FindIvest | Liste des projets {% endblock %}
 
 {% block content %}
 
@@ -74,7 +74,7 @@
                 <a href="{% url 'accueil' %}" class="menu-item">
                     <span><i class="uil uil-home"></i></span><h3>Accueil</h3>
                 </a>
-                <a href="{% url 'favoris' usr.id %}" class="menu-item active">
+                <a href="{% url 'favoris' usr.id %}" class="menu-item">
                     <span><i class="uil uil-folder-heart"></i></span><h3>Favoris</h3>
                 </a>
            
@@ -86,7 +86,7 @@
                     <span><i class="uil uil-user"></i></span><h3>Profil</h3>
                 </a> 
                 {% if usr.etudiant.id %}
-                <a href="{% url 'mes_projets' usr.etudiant.id %}" class="menu-item">
+                <a href="{% url 'mes_projets' usr.etudiant.id %}" class="menu-item active">
                     <span><i class="uil uil-folder"></i></span><h3>Projets</h3>
                 </a>
                 {% endif %}
@@ -99,63 +99,6 @@
       </div>
       <!-- ============== END OF LEFT =============== -->
 
-
-      <!-- ============== MIDDLE =============== -->
-
-      <!-- =======DEBUT DU STYLE DU MIDDLE ========-->
-      <style>
-        .card{
-          border-radius: 20px;
-          opacity: 100%;
-          margin: 5px;
-        }
-        .card::before{
-          opacity: 12%;
-        }
-
-        .card-body .img-profil{
-          border-radius: 50%;
-          height: 135px;
-          width: 135px;
-          margin-left: 10px;
-        }
-
-        .card-body .card-title{
-          max-width: 160px;
-          display: block;
-          font-size: 1.1rem;
-        }
-        .card-body .domain{
-            margin-left: 16rem;
-            text-align: center;
-            position: absolute;
-            margin-top: 1.5rem;
-            font-size: 1.8rem;
-        }
-        .card-body .titre-projet{
-            margin-left: 14rem;
-            display: block;
-            position: absolute;
-            margin-top: 3.9rem;
-        }
-        .img-projet{
-            display:inline-flex;
-        }
-        .img-projet img{
-            width: 150px;
-            height: 140px;
-            background-color: #D9D9D9;
-            margin: 5px;
-        }
-      </style>
-      <!-- ======= FIN DU STYLE DU MIDDLE ========-->
-
-
-      <!-- ======= DEBUT DU Script ========-->
-        <script lang="french">
-          
-        </script>
-      <!-- ======= FIN DU Script ========-->
       <div class="middle">
 
          <!-- --------- début recherche ------------ -->
@@ -184,9 +127,9 @@
           
         <div class="create-post text-center" style="display: block !important; font-weight: 600;">
             {% if listProjet %}
-                {{nbFav}} Projet(s) en favoris 
+                {{listProjet.count}} Projet(s) publié(s) par {{usr.last_name}} 
             {% else %}
-                0 de Projets en favoris
+                0 de Projet(s) publié(s) par {{usr.last_name}}
             {% endif %}
         </div>
         <!-- ------------ posts --------------- -->
