@@ -24,6 +24,7 @@ urlpatterns = [
     # favoris
     path('favoris/<str:id_u>', favoris, name="favoris"),
     path('createFavoris', createFavoris, name="createFavoris"),
+    path('getFavoris', getFavoris, name='getFavoris'),
 
 
     path('test', test, name='test'),

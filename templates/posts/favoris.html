@@ -34,10 +34,11 @@
           {% endif %}
           <ul class="dropdown-menu">
               <li>
-                  {% if request.user.etudiant.id %}
-                      <a class="dropdown-item" href="{% url 'profile_student' request.user.etudiant.id %}">
-                  {% else %}
-                  {% endif %}
+                {% if request.user.etudiant.id %}
+                    <a class="dropdown-item" href="{% url 'profile_student' request.user.etudiant.id %}">
+                {% else %}
+                    <a class="dropdown-item" href="{% url 'profile_investor' request.user.investisseur.id %}">
+                {% endif %}
                   <i class="uil uil-user"></i> Profil</a>
               </li>
               <li><a class="dropdown-item" href="{% url 'user_logout' %}">
@@ -74,17 +75,16 @@
                   <span><i class="uil uil-folder-heart"></i></span><h3>Accueil</h3>
               </a>
             {% if request.user.etudiant.id %}
-              <a class="menu-item">
-                  <span><i class="uil uil-folder"></i></span><h3>Mes projets</h3>
-              </a>
-            {% endif %}
-              <a class="menu-item active">
-                  <span><i class="uil uil-folder-heart"></i></span><h3>Mes favoris</h3>
-              </a>
-            {% if request.user.etudiant.id %}
-              <a class="menu-item">
-                  <span><i class="uil uil-users-alt"></i></span><h3>Abonnées</h3>
-              </a>
+                {% if request.user.etudiant.id %}
+                    <a class="menu-item" href="{% url 'profile_student' request.user.etudiant.id %}">
+                {% else %}
+                    <a class="menu-item" href="{% url 'profile_investor' request.user.investisseur.id %}">
+                {% endif %}
+                    <span><i class="uil uil-users-alt"></i></span><h3>Mon profil</h3>
+                </a>
+                <a class="menu-item">
+                    <span><i class="uil uil-folder"></i></span><h3>Mes projets</h3>
+                </a>
             {% endif %}
               <a class="menu-item" id="theme">
                   <span><i class="uil uil-palette"></i></span><h3>Thème</h3>
@@ -334,61 +334,6 @@
       <!-- ============== END OF RIGTH =============== -->
   </div>
 </main>
-
-
-<!-- ==================== THEME CUSTOMIZATION ======================= -->
-<div class="customize-theme">
-  <div class="carte">
-      <span class="bt-close"><i class="uil uil-multiply" id="close_modal"></i></span>
-      <h2>Changez votre affichage</h2>
-      <p class="text-muted">Gérez vos texte, couleurs, et arrière-plan</p>
-
-      <!-- -------------- font sizes ------------- -->
-      <div class="font-size">                
-          <h4>Taille de police</h4>
-          <div>
-              <h6>Aa</h6>
-              <div class="choose-size">
-                  <span class="font-size-1"></span>
-                  <span class="font-size-2"></span>
-                  <span class="font-size-3 active"></span>
-                  <span class="font-size-4"></span>
-              </div>
-              <h3>Aa</h3>
-          </div>
-      </div>
-
-      <!-- primary colors -->
-      <div class="color">
-          <h4>Couleurs</h4>
-          <div class="choose-color">
-              <span class="color-1 active"></span>
-              <span class="color-2"></span>
-              <span class="color-3"></span>
-              <span class="color-4"></span>
-          </div>
-      </div>
-
-      <!-- ----------- backgroung colors -->
-      <div class="background">
-          <h4>Arrière-plan</h4>
-          <div class="choose-bg">
-              <div class="bg bg-1 active">
-                  <span></span>
-                  <h5 for="bg-1">Clair</h5>
-              </div>
-              <div class="bg bg-2">
-                  <span></span>
-                  <h5 for="bg-2">Sombre</h5>
-              </div>
-              <div class="bg bg-3">
-                  <span></span>
-                  <h5 for="bg-3">Noir</h5>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
 
 {% endblock %}
 

@@ -75,7 +75,7 @@ def accueil(request):
         # 'usrPicList':usrPicList,
 
         # favorite
-        'favList':favList
+        'favList':favList,
     }
     return render(request, 'posts/accueil.html', context)
 
@@ -298,13 +298,15 @@ def createFavoris(request):
     projet = Projet.objects.get(id=proj)
     user = User.objects.get(id=aut)
     nomFav = proj+" "+aut
+    id_proj = proj
+    id_usr = aut
 
     # créer un nouveau favoris
     if Favoris.objects.filter(nomFav=nomFav).exists():
         Favoris.objects.get(nomFav=nomFav).delete()
         return HttpResponse('Removed in Favoris list successfully')
     else:
-        new_favoris = Favoris.objects.create(projet=projet, user=user, nomFav=nomFav)
+        new_favoris = Favoris.objects.create(projet=projet, user=user, nomFav=nomFav, id_proj=id_proj, id_usr=id_usr)
         new_favoris.save()
     return HttpResponse('Added in Favoris list successfully')
 
@@ -335,6 +337,15 @@ def favoris(request, id_u):
         'postListUnique':postListUnique,
     }
     return render(request, 'posts/favoris.html', context)
+
+
+def getFavoris(request):
+    favoriss = Favoris.objects.all()
+    context = {'favoriss':list(favoriss.values())}
+    return JsonResponse(context)
+
+
+
 
 
 

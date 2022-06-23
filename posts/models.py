@@ -107,4 +107,6 @@ class Favoris(models.Model):
     projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='favoris')
     user = models.ForeignKey(User, models.CASCADE)
     nomFav = models.CharField(max_length=100)
+    id_proj = models.CharField(max_length=100, null=True)
+    id_usr = models.CharField(max_length=100, null=True)
 

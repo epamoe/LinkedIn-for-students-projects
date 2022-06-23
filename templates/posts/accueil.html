@@ -261,22 +261,22 @@
                             <div class="interaction-buttons">
                                 <span>
                                     <!-- <i class="uil uil-heart"></i> -->
-                                    <i class="bi bi-suit-heart-fill"></i>
+                                    <!-- <i class="bi bi-suit-heart-fill"></i> -->
                                     <i class="bi bi-suit-heart"></i>
-                                    <span class="text-muted text-small">15</span>
+                                    <!-- <span class="text-muted text-small">15</span> -->
                                 </span>&emsp;
                                 <span>
                                     <!-- <i class="uil uil-comment-dots icon-toggle-comments"></i> -->
                                     <i class="bi bi-chat-text icon-toggle-comments"></i>
-                                    <span class="text-muted text-small">15</span>
+                                    <!-- <span class="text-muted text-small">15</span> -->
                                 </span>&emsp;
                                 <span><i class="uil uil-share-alt"></i></span>
                             </div>
                             <div>
                             </div>
                             <div class="favorite">
-                                <span class="btn-favoris">
                                     <!-- <i class="uil uil-favorite"></i> -->
+                                <span class="btn-favoris" id="fav{{post.id}}">
                                     <i class="bi bi-star"></i>
                                     <i class="bi bi-star-fill"></i>
                                 </span>
@@ -288,7 +288,7 @@
                             </div>
                         </div>
 
-                        <div class="liked-by">
+                        <!-- <div class="liked-by">
                             <span><img src="{% static 'img/default.jpeg' %}"></span>
                             <span><img src="{% static 'img/default.jpeg' %}"></span>
                             <span><img src="{% static 'img/default.jpeg' %}"></span>
@@ -297,12 +297,12 @@
 
                         <div class="caption">
                             <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
-                        </div>
+                        </div> -->
 
                         <!-- ------------------- partie commentaires ---------------------- -->
 
                         <div class="comments mt-1">
-                            <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
+                            <span class="text-muted toggle-comments">Voir/Cacher tous les commentaires</span>
                             <div class="list-comments mt-3">
                                 <div class="chat pt-4" id="comments{{post.id}}">
 
@@ -984,7 +984,9 @@
                                 $("#comments"+projets[i].value).append(temp);
                             }
                         }
+                        // refreshFav();
                     }
+                    
                 },
                 error: function(response){
                     alert('An error occured')
@@ -994,7 +996,7 @@
     })
 
 
-    // favoris
+    // ajout/supprimer favoris
 
     btnFavoris = document.querySelectorAll('.btn-favoris');
     addFavoris = document.querySelectorAll('.bi-star');
@@ -1022,6 +1024,72 @@
         });
         
     }
+
+    // raffraichir liste des favoris
+
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "{% url 'getFavoris' %}",
+                success: function(response){
+                    for (let i = 0; i < listComments.length; i++) {
+                        $("#fav"+projets[i].value).empty();
+                        if(response.favoriss.length == 0){
+                            temp = "<i class='bi bi-star'></i>";
+                            $("#fav"+projets[i].value).append(temp);
+                        }else{
+                            for (var key in response.favoriss){
+                                if(response.favoriss[key].id_proj == projets[i].value 
+                                    && response.favoriss[key].id_usr == "{{request.user.id}}"){
+                                    temp = "<i class='bi bi-star-fill'></i>";
+                                }else{
+                                    temp = "<i class='bi bi-star'></i>";
+                                }
+                                $("#fav"+projets[i].value).append(temp);
+                                
+                            }
+                        }
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },1000);
+    })
+
+
+
+    // function refreshFav(i) {
+    //     // alert("ccc");
+    //     $.ajax({
+    //         type: 'GET',
+    //         url : "{% url 'getFavoris' %}",
+    //         success: function(response){
+    //             for (let i = 0; i < listComments.length; i++) {
+    //                 $("#fav"+projets[i].value).empty();
+    //                 if(response.favoriss.length == 0){
+    //                     temp = "<i class='bi bi-star'></i>";
+    //                     $("#fav"+projets[i].value).append(temp);
+    //                 }else{
+    //                     for (var key in response.favoriss){
+    //                         if(response.favoriss[key].id_proj == projets[i].value 
+    //                             && response.favoriss[key].id_usr == "{{request.user.id}}"){
+    //                             temp = "<i class='bi bi-star-fill'></i>";
+    //                         }else{
+    //                             temp = "<i class='bi bi-star'></i>";
+    //                         }
+    //                         $("#fav"+projets[i].value).append(temp);
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //         error: function(response){
+    //             alert('An error occured')
+    //         }
+    //     });
+    // };
 
 </script>
 
