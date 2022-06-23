@@ -183,44 +183,7 @@
                         </a>
                     </div>
 
-                    <div class="action-buttons mt-0">
-                        <style>
-                            .bi-star-fill{
-                                color: orange;
-                            }
-                            .bi-suit-heart-fill{
-                                color: red;
-                            }
-                        </style>
-                        <div class="interaction-buttons">
-                            <span>
-                                <!-- <i class="uil uil-heart"></i> -->
-                                <i class="bi bi-suit-heart-fill"></i>
-                                <i class="bi bi-suit-heart"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span>
-                                <!-- <i class="uil uil-comment-dots icon-toggle-comments"></i> -->
-                                <i class="bi bi-chat-text icon-toggle-comments"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span><i class="uil uil-share-alt"></i></span>
-                        </div>
-                        <div>
-                        </div>
-                        <div class="favorite">
-                            <span class="btn-favoris">
-                                <!-- <i class="uil uil-favorite"></i> -->
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </span>
-                            &emsp;
-                            <!-- <i class="uil uil-comments-alt"></i> -->
-                            {% if usr.investisseur.id %}
-                                <a id="btn-disc" href="{% url 'createRoom' usr.investisseur.id post.etudiant.id post.title %}"><i class="bi bi-messenger"></i></a>
-                            {% endif %}
-                        </div>
-                    </div>
+                   
 
                     
                 </div>

@@ -375,11 +375,25 @@ def profile_student(request, id_e):
 
 @login_required(login_url='connexion')
 def profile_investor(request,id_i):
+    postList = Projet.objects.all()
+    postListUnique = []
+    pListCat = []
+    for p in postList:
+        if p.categorie not in pListCat:
+            postListUnique.append(p)
+            pListCat.append(p.categorie)
+    
+
     investor=Investisseur.objects.get(id=id_i)
     util=User.objects.get(id=investor.user.id)
+    usr = util
     context={
         'util':util,
         'investor':investor,
+
+        'postList':postList,
+        'postListUnique':postListUnique,
+        'usr':usr,
     }
     return render(request, 'users/profile_investor.html',context)
 

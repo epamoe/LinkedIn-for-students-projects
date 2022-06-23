@@ -54,6 +54,6 @@ class Investisseur(Utilisateur):
 
     profession = models.CharField(max_length=100)
     objectifs = models.CharField(max_length=300)
-    entreprise = models.CharField(max_length=100, blank=True)
+    entreprise = models.CharField(max_length=100, blank=True, default='Non renseigné')
     def __str__(self):
         return f'{self.user.username} Profile'
