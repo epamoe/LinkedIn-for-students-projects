@@ -476,6 +476,10 @@ main .container .left .profile .handle p{
     line-height: 1.5;
 }
 
+.middle .posts .post.investi{
+    /* border: green solid 2px !important; */
+    box-shadow: 0 0 1rem green;
+}
 .middle .posts .post .head h3 {
     font-size: 1.18em;
     font-weight: 600;
@@ -1584,4 +1588,32 @@ MEDIA QUERIES FOR MOBILE PHONES
     }
 
 }
+
+
+
+/* ================== pages profile =============== */
+
+.profile-info {
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.create-post.infos{
+    background: var(--color-primary) !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    color: #fff;
+    font-size: 1.4rem;
+    opacity: 0.8;
+}
+
+.profile-info .contacts i {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+}
+
+
 

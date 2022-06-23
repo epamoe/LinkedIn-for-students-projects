@@ -75,9 +75,6 @@
 
             <!-- ---------- sidebar ---------- -->
             <div class="sidebar">
-                <!-- <a class="menu-item active">
-                    <span><i class="uil uil-home"></i></span><h3>Home</h3>
-                </a> -->
 
                 <!-- lance le modal des discussions -->
                 <a class="menu-item" id="messages-notifications"  data-bs-toggle="modal" data-bs-target="#discussionModal">
@@ -138,7 +135,7 @@
                 <a class="menu-item">
                     <span><i class="uil uil-folder"></i></span><h3>Mes projets</h3>
                 </a>
-                <a class="menu-item">
+                <a href="{% url 'favoris' request.user.id %}" class="menu-item">
                     <span><i class="uil uil-folder-heart"></i></span><h3>Mes favoris</h3>
                 </a>
                 <a class="menu-item">
@@ -147,9 +144,6 @@
                 <a class="menu-item" id="theme">
                     <span><i class="uil uil-palette"></i></span><h3>Thème</h3>
                 </a>
-                <!-- <a class="menu-item">
-                    <span><i class="uil uil-setting"></i></span><h3>Paramètres</h3>
-                </a> -->
             </div>
 
             <!-- ------------ end of sidebar --------- -->
@@ -208,7 +202,11 @@
             <div class="posts">
                 {% for post in postList %}
                     <!-- ------------ post 1 --------------- -->
+                    {% if post.investi == "Oui" %}
+                    <div class="post investi" id="projet{{post.id}}">
+                    {% else %}
                     <div class="post" id="projet{{post.id}}">
+                    {% endif %}
                         <div class="head">
                             <div class="user">
                                 <a href="{% url 'profile_student' post.etudiant.id %}">
@@ -230,7 +228,7 @@
                                         <i class="uil uil-ellipsis-h"></i> 
                                     </span>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
-                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal">Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}">Modifier</a></li>
                                         <li><a class="dropdown-item" href="{% url 'delete_post' post.id %}" onclick="return delete_post();">Supprimer</a></li>
                                     </ul>
                                 </div>
@@ -238,7 +236,12 @@
                         </div>
                         <div class="post-description">
                             <div class="post-title">
-                                <h5>{{post.title}}</h5>
+                                <h5>
+                                    {{post.title}}
+                                    {% if post.investi == "Oui" %}
+                                    <span style="color: green;">- projet inivesti</span>
+                                    {% endif %}
+                                </h5>
                             </div>
                             <p>
                                 {{post.description}}
@@ -255,30 +258,49 @@
                             </a>
                         </div>
 
-                        <div class="action-buttons">
+                        <div class="action-buttons mt-0">
+                            <style>
+                                .bi-star-fill{
+                                    color: orange;
+                                }
+                                .bi-suit-heart-fill{
+                                    color: red;
+                                }
+                            </style>
                             <div class="interaction-buttons">
                                 <span>
-                                    <i class="uil uil-heart"></i>
-                                    <span class="text-muted text-small">15</span>
+                                    <!-- <i class="uil uil-heart"></i> -->
+                                    <!-- <i class="bi bi-suit-heart-fill"></i> -->
+                                    <i class="bi bi-suit-heart"></i>
+                                    <!-- <span class="text-muted text-small">15</span> -->
                                 </span>&emsp;
                                 <span>
-                                    <i class="uil uil-comment-dots icon-toggle-comments"></i>
-                                    <span class="text-muted text-small">15</span>
+                                    <!-- <i class="uil uil-comment-dots icon-toggle-comments"></i> -->
+                                    <i class="bi bi-chat-text icon-toggle-comments"></i>
+                                    <!-- <span class="text-muted text-small">15</span> -->
                                 </span>&emsp;
                                 <span><i class="uil uil-share-alt"></i></span>
                             </div>
                             <div>
                             </div>
                             <div class="favorite">
-                                <span><i class="uil uil-favorite"></i></span>
+                                    <!-- <i class="uil uil-favorite"></i> -->
+                                <span class="btn-favoris" id="fav{{post.id}}">
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </span>
                                 &emsp;
+                                <!-- <i class="uil uil-comments-alt"></i> -->
                                 {% if request.user.investisseur.id %}
-                                    <a id="btn-disc" href="{% url 'createRoom' request.user.investisseur.id post.etudiant.id post.title %}"><i class="uil uil-comments-alt"></i></a>
+                                    <a id="btn-disc" href="{% url 'createRoom' request.user.investisseur.id post.etudiant.id post.title %}"><i class="bi bi-messenger"></i></a>
+                                {% endif %}
+                                {% if post.etudiant.id == request.user.etudiant.id %}
+                                    <i style="color: green;" class="uil uil-money-withdraw markInvest"></i>
                                 {% endif %}
                             </div>
                         </div>
 
-                        <div class="liked-by">
+                        <!-- <div class="liked-by">
                             <span><img src="{% static 'img/default.jpeg' %}"></span>
                             <span><img src="{% static 'img/default.jpeg' %}"></span>
                             <span><img src="{% static 'img/default.jpeg' %}"></span>
@@ -287,14 +309,14 @@
 
                         <div class="caption">
                             <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
-                        </div>
+                        </div> -->
 
                         <!-- ------------------- partie commentaires ---------------------- -->
 
                         <div class="comments mt-1">
-                            <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
+                            <span class="text-muted toggle-comments">Voir/Cacher tous les commentaires</span>
                             <div class="list-comments mt-3">
-                                <div class="chat pt-4">
+                                <div class="chat pt-4" id="comments{{post.id}}">
 
                                     <!-- comentaire 1 -->
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
@@ -313,19 +335,6 @@
                                                     <span class="btn-reply-comment">Répondre</span>&emsp;
                                                     01:13PM
                                                 </span>
-                                            </div>
-
-                                            <!-- --------- input réponse commentaire 1 ------- -->
-                                            <div class="reply-comment">
-                                                <form action="" method="post">
-                                                    {% csrf_token %}
-                                                    <input type="text" name="" id="" placeholder="Votre réponse">
-                                                    <div class="send">
-                                                        <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                        <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                    </div>
-                            
-                                                </form>
                                             </div>
                                             <br>
                                         </div>
@@ -883,18 +892,45 @@
 </script> -->
 
 
-<!-- commenter un projet -->
+<!-- commenter un projet, mettre en favoris un projet -->
 
 <script>
+    listcomForms = document.querySelectorAll('.comment_form');
     comForms = document.querySelectorAll('.btn_sub');
     corps = document.querySelectorAll('#corps');
     projets = document.querySelectorAll('#projet');
     auteurs = document.querySelectorAll('#auteur');
 
     // envoyer le commentaire
-
+    
+    // click sur le bouton envoyer
     for (let i = 0; i < comForms.length; i++) {
         comForms[i].addEventListener("click", function(e){
+            e.preventDefault();
+            // alert(projets[i].value);
+            $.ajax({
+                type:'POST',
+                url:'CommentPost',
+                data:{
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    corps:corps[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                    corps[i].value = '';
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
+
+    // click sur le bouton Enter
+    for (let i = 0; i < comForms.length; i++) {
+        listcomForms[i].addEventListener("submit", function(e){
             e.preventDefault();
             // alert(projets[i].value);
             $.ajax({
@@ -920,47 +956,144 @@
     // raffraichir la liste des commentaires
 
     listComments = document.querySelectorAll('.chat');
-// $(document).ready(function(){
-//     for (let i = 0; i < listComments.length; i++) {
-//         listComments[i].addEventListener("click", function(e){
-//             // alert(i);
-//             setInterval(function(){
-//                 $.ajax({
-//                     type: 'GET',
-//                     url : "{% url 'accueil' %}",
-//                     success: function(response){
-//                         // console.log(response);
-//                         listComments[i].empty();
-//                         alert(i);
-//                     },
-//                     error: function(response){
-//                         alert('An error occured')
-//                     }
-//                 });
-//             },1000);
-//         })   
-//     }
-// });
 
     $(document).ready(function(){
 
-        // setInterval(function(){
+        setInterval(function(){
             $.ajax({
-                // type: 'POST',
-                url : "{% url 'accueil' %}",
+                type: 'GET',
+                url : "{% url 'getComments' %}",
                 success: function(response){
                     for (let i = 0; i < listComments.length; i++) {
-                        // alert(i);
-                        // corps[i].value = corps[i].value + i ;
+                        $("#comments"+projets[i].value).empty();
+                        for (var key in response.comments){
+                            if(projets[i].value == response.comments[key].id_projet){
+                                // si utilisateur connecté
+                                if(response.comments[key].auteur == "{{request.user.username}}"){
+                                    temp = "<div class='.disc-right d-flex align-items-baseline text-end justify-content-end'>"
+                                            +"<div class='right-messages'><span class='card card-text-right d-inline-block text-start py-1 px-3 me-1'>"
+                                            +response.comments[key].corps
+                                            +"</span><br><div class='me-2'><span class='text-muted'>"+response.comments[key].date_added+"</span>"
+                                            +"</div><br></div></div>";
+                                }else{
+                                    temp1 = "<div class='.disc-left d-flex align-items-start text-start justify-content-start'>";
+                                    "{% for usr in userList %}"
+                                        if ("{{usr.username}}" == response.comments[key].auteur) {
+                                            "{% if usr.etudiant.id %}"
+                                                temp2 = "<div><div class='avatar'><img src='{{usr.etudiant.photoProfil.url}}'></div></div>"
+                                            "{% else %}"
+                                                temp2 = "<div><div class='avatar'><img src='{{usr.investisseur.photoProfil.url}}'></div></div>"
+                                            "{% endif %}"
+                                        }
+                                    "{% endfor %}"
+                                    temp3 = "<div class='left-messages'><span class='card card-text-left d-inline-block py-1 px-3 ms-1'>"
+                                            +response.comments[key].corps
+                                            +"</span><br><div class='ms-2 my-1'><span class='text-muted'>"
+                                            +"<span class='btn-reply-comment'>Répondre</span>&emsp;"+response.comments[key].date_added+"</span></div><br>"
+                                            +"</div></div>";
+                                    temp = temp1+temp2+temp3;
+                                }
+                                $("#comments"+projets[i].value).append(temp);
+                            }
+                        }
+                        // refreshFav();
+                    }
+                    
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },2000);
+    })
+
+
+    // ajout/supprimer favoris
+
+    btnFavoris = document.querySelectorAll('.btn-favoris');
+    addFavoris = document.querySelectorAll('.bi-star');
+    removeFavoris = document.querySelectorAll('.bi-star-fill');
+
+    for (let i = 0; i < btnFavoris.length; i++) {
+        btnFavoris[i].addEventListener("click", function(e){
+            // alert(projets[i].value);
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'createFavoris',
+                data:{
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+        
+    }
+
+    // raffraichir liste des favoris
+
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "{% url 'getFavoris' %}",
+                success: function(response){
+                    for (let i = 0; i < listComments.length; i++) {
+                        $("#fav"+projets[i].value).empty();
+                        if(response.favoriss.length == 0){
+                            temp = "<i class='bi bi-star'></i>";
+                            $("#fav"+projets[i].value).append(temp);
+                        }else{
+                            for (var key in response.favoriss){
+                                if(response.favoriss[key].id_proj == projets[i].value 
+                                    && response.favoriss[key].id_usr == "{{request.user.id}}"){
+                                    temp = "<i class='bi bi-star-fill'></i>";
+                                }else{
+                                    temp = "<i class='bi bi-star'></i>";
+                                }
+                                $("#fav"+projets[i].value).append(temp);
+                                
+                            }
+                        }
                     }
                 },
                 error: function(response){
                     alert('An error occured')
                 }
             });
-        // },1000);
+        },1000);
     })
 
+
+    // marquer un projet investi
+
+    markInvests = document.querySelectorAll('.markInvest');
+    for (let i = 0; i < markInvests.length; i++) {
+        markInvests[i].addEventListener("click", function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'markPost',
+                data:{
+                    projet:projets[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    alert(data);
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
 
 </script>
 

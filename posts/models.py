@@ -33,7 +33,7 @@ class Projet(models.Model):
     date_post = models.DateTimeField('date_post',auto_now_add=True, blank=True)
 
     def __str__(self):
-        return  f'{self.etudiant.user.last_name} -a posté- {self.title}'
+        return  f'{self.title} par {self.etudiant.user.last_name}'
     class Meta:
         ordering = ['-date_post']
 
@@ -68,12 +68,21 @@ class Message(models.Model):
 
 class Commentaire(models.Model):
     projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
-    auteur = models.ForeignKey(User, models.CASCADE)
+    user = models.ForeignKey(User, models.CASCADE)
+
+    def __str__(self):
+        return f'Commentaire de {self.user} pour {self.projet.title}'
+    
+
+class ComMessage(models.Model):
+    commentaire = models.ForeignKey(Commentaire, on_delete=models.CASCADE, related_name="contenus")
+    auteur = models.CharField(max_length=100)
+    id_projet = models.CharField(max_length=100, null=True)
     corps = models.TextField(max_length=500)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Commentaire de {self.auteur} le {self.date_added}'
+        return f'Contenue du {self.auteur} le {self.date_added}'
     class Meta:
         ordering = ['-date_added']
 
@@ -90,4 +99,14 @@ class Reponse(models.Model):
         ordering = ['-date_added']
 
 
+
+
+# models l'ajout d'un projet en favoris
+
+class Favoris(models.Model):
+    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='favoris')
+    user = models.ForeignKey(User, models.CASCADE)
+    nomFav = models.CharField(max_length=100)
+    id_proj = models.CharField(max_length=100, null=True)
+    id_usr = models.CharField(max_length=100, null=True)
 
