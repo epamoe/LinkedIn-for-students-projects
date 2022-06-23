@@ -476,6 +476,10 @@ main .container .left .profile .handle p{
     line-height: 1.5;
 }
 
+.middle .posts .post.investi{
+    /* border: green solid 2px !important; */
+    box-shadow: 0 0 1rem green;
+}
 .middle .posts .post .head h3 {
     font-size: 1.18em;
     font-weight: 600;

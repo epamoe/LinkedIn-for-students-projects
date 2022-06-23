@@ -202,7 +202,11 @@
             <div class="posts">
                 {% for post in postList %}
                     <!-- ------------ post 1 --------------- -->
+                    {% if post.investi == "Oui" %}
+                    <div class="post investi" id="projet{{post.id}}">
+                    {% else %}
                     <div class="post" id="projet{{post.id}}">
+                    {% endif %}
                         <div class="head">
                             <div class="user">
                                 <a href="{% url 'profile_student' post.etudiant.id %}">
@@ -232,7 +236,12 @@
                         </div>
                         <div class="post-description">
                             <div class="post-title">
-                                <h5>{{post.title}}</h5>
+                                <h5>
+                                    {{post.title}}
+                                    {% if post.investi == "Oui" %}
+                                    <span style="color: green;">- projet inivesti</span>
+                                    {% endif %}
+                                </h5>
                             </div>
                             <p>
                                 {{post.description}}
@@ -1063,36 +1072,28 @@
     })
 
 
+    // marquer un projet investi
 
-    // function refreshFav(i) {
-    //     // alert("ccc");
-    //     $.ajax({
-    //         type: 'GET',
-    //         url : "{% url 'getFavoris' %}",
-    //         success: function(response){
-    //             for (let i = 0; i < listComments.length; i++) {
-    //                 $("#fav"+projets[i].value).empty();
-    //                 if(response.favoriss.length == 0){
-    //                     temp = "<i class='bi bi-star'></i>";
-    //                     $("#fav"+projets[i].value).append(temp);
-    //                 }else{
-    //                     for (var key in response.favoriss){
-    //                         if(response.favoriss[key].id_proj == projets[i].value 
-    //                             && response.favoriss[key].id_usr == "{{request.user.id}}"){
-    //                             temp = "<i class='bi bi-star-fill'></i>";
-    //                         }else{
-    //                             temp = "<i class='bi bi-star'></i>";
-    //                         }
-    //                         $("#fav"+projets[i].value).append(temp);
-    //                     }
-    //                 }
-    //             }
-    //         },
-    //         error: function(response){
-    //             alert('An error occured')
-    //         }
-    //     });
-    // };
+    markInvests = document.querySelectorAll('.markInvest');
+    for (let i = 0; i < markInvests.length; i++) {
+        markInvests[i].addEventListener("click", function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'markPost',
+                data:{
+                    projet:projets[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    alert(data);
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
 
 </script>
 

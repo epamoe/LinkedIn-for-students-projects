@@ -370,3 +370,16 @@ def getFavoris(request):
 
 
 
+# ==================== MARQUER INVESTI ===============
+
+def markPost(request):
+    proj = request.POST['projet']
+
+    projet = Projet.objects.get(id=proj)
+    if projet.investi == "Non":
+        projet.investi = "Oui"
+    else:
+        projet.investi = "Non"
+    projet.save()
+    return HttpResponse('Tagged successfully')
+

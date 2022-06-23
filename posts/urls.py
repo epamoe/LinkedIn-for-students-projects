@@ -28,5 +28,7 @@ urlpatterns = [
     path('createFavoris', createFavoris, name="createFavoris"),
     path('getFavoris', getFavoris, name='getFavoris'),
 
+    # marquer investi
+    path('markPost', markPost, name='markPost'),
 
 ]
